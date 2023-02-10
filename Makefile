@@ -12,8 +12,7 @@ INCLUDES = -I dependencies/libft -I includes
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = main.c \
-	  history.c
+SRC = main.c
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
