@@ -1,17 +1,19 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 LIBFT = dependencies/libft/libft.a
 LIBFT_DIR = dependencies/libft
 
 DEPENDENCIES = $(LIBFT) -lreadline
+INCLUDES = -I dependencies/libft -I includes
 
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = main.c
+SRC = main.c \
+	  history.c
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
@@ -24,7 +26,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 	@echo "Compiling $<"
 
 clean:
