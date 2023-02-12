@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:14:52 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:29:33 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:49:47 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_env(t_env *environment, char *key)
 	while (env)
 	{
 		if (ft_strncmp(env->name, key, ft_strlen(key)) == 0)
-			return (env->value);
+			return (ft_strdup(env->value));
 		env = env->next;
 	}
 	return (0);
