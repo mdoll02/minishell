@@ -6,17 +6,17 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:48:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:19:04 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:29:47 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <readline/readline.h>
 #include "execution.h"
 #include "types.h"
 #include "libft.h"
+#include "environment.h"
 
 static void	next_run(t_shell *shell)
 {
@@ -45,6 +45,7 @@ static int	minishell(void)
 	shell->first_run = 1;
 	while (!shell->exit)
 		next_run(shell);
+	clear_env(&shell->env);
 	return (0);
 }
 

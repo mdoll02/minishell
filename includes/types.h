@@ -13,11 +13,20 @@
 #ifndef TYPES_H
 # define TYPES_H
 
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_shell
 {
-	int	first_run;
-	int	last_status;
-	int	exit;
+	int		first_run;
+	int		last_status;
+	int		exit;
+	int		envc;
+	t_env	*env;
 }	t_shell;
 
 typedef struct s_cmd

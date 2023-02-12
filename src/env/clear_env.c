@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   clear_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 23:03:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:29:04 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/02/13 00:23:15 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/13 00:27:38 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include <stdlib.h>
+#include "environment.h"
 
-#include "types.h"
+void	clear_env(t_env **environment)
+{
+	t_env	*env;
+	t_env	*tmp;
 
-char	*get_env(t_env *environment, char *key);
-void	set_env(t_shell *shell, char *key, const char *value);
-void	clear_env(t_env **environment);
-
-#endif //ENVIRONMENT_H
+	env = *environment;
+	while (env)
+	{
+		tmp = env;
+		env = env->next;
+		free(tmp->name);
+		free(tmp->value);
+		free(tmp);
+	}
+	*environment = 0;
+}

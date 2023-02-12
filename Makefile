@@ -18,6 +18,9 @@ SRC = main.c \
 	  builtins/exit.c \
 	  builtins/cd.c \
 	  parsing/parse_command.c \
+	  env/get_env.c \
+	  env/set_env.c \
+	  env/clear_env.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
