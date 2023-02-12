@@ -6,19 +6,27 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:24:39 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:47:29 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:00:38 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "builtins.h"
+#include "libft.h"
 
 int	echo_builtin(t_shell *shell, t_cmd *cmd)
 {
 	int	i;
+	int	n_flag;
 
 	(void)shell;
 	i = 1;
+	n_flag = 0;
+	if (cmd->args[1] && ft_strncmp(cmd->args[1], "-n", 2) == 0)
+	{
+		n_flag = 1;
+		i++;
+	}
 	while (cmd->args[i])
 	{
 		printf("%s", cmd->args[i]);
@@ -26,6 +34,7 @@ int	echo_builtin(t_shell *shell, t_cmd *cmd)
 			printf(" ");
 		i++;
 	}
-	printf("\n");
+	if (!n_flag)
+		printf("\n");
 	return (0);
 }
