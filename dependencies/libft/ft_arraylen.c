@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   ft_arraylen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 23:14:00 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:06:11 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/02/13 00:06:55 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/13 00:07:06 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
-
-typedef struct s_shell
+int	ft_arraylen(char **array)
 {
-	int	first_run;
-	int	last_status;
-	int	exit;
-}	t_shell;
+	int	i;
 
-typedef struct s_cmd
-{
-	char	*name;
-	int		argc;
-	char	**args;
-}	t_cmd;
-
-#endif //TYPES_H
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
+}

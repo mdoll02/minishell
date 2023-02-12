@@ -22,5 +22,6 @@ int	parse_command(char *line, t_cmd *cmd)
 		i++;
 	cmd->name = ft_substr(line, 0, i);
 	cmd->args = ft_split(line, ' ');
+	cmd->argc = ft_arraylen(cmd->args);
 	return (0);
 }

@@ -16,6 +16,7 @@ SRC = main.c \
 	  execution.c \
 	  builtins/echo.c \
 	  builtins/exit.c \
+	  builtins/cd.c \
 	  parsing/parse_command.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)

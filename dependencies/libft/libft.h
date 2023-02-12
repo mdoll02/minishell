@@ -6,7 +6,7 @@
 /*   By: kschmidt <kschmidt@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:00:23 by kschmidt          #+#    #+#             */
-/*   Updated: 2022/12/13 17:06:47 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:07:25 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+// Additional Functions
+int	ft_arraylen(char **array);
 
 // BONUS 🎉🎉🥳🥳
 

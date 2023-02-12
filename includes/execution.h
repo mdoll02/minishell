@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:41:19 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:02:24 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 const static t_builtin	g_builtins[] = {
 {"exit", exit_builtin},
 {"echo", echo_builtin},
+{"cd", cd_builtin},
 {0}
 };
 

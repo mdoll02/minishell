@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:34:03 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:39:04 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:11:12 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ typedef struct s_builtin
 
 int	echo_builtin(t_shell *shell, t_cmd *cmd);
 int	exit_builtin(t_shell *shell, t_cmd *cmd);
+int	cd_builtin(t_shell *shell, t_cmd *cmd);
 
 #endif //BUILTINS_H
