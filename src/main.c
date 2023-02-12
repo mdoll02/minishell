@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:48:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:10:38 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/12 23:19:04 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,36 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include "execution.h"
+#include "types.h"
+#include "libft.h"
 
-int	minishell(void)
+static void	next_run(t_shell *shell)
 {
 	char	*line;
-	int		status;
 
-	status = 1;
-	line = readline("minishell$ ");
-	while (status)
+	if (shell->first_run)
 	{
-		status = execute(line);
-		free(line);
-		if (status)
-			line = readline("KO minishell$ ");
-		else
-			line = readline("OK minishell$ ");
+		shell->first_run = 0;
+		line = readline("minishell$ ");
 	}
+	else if (shell->last_status)
+		line = readline("KO minishell$ ");
+	else
+		line = readline("OK minishell$ ");
+	shell->last_status = execute(shell, line);
+	free(line);
+}
+
+static int	minishell(void)
+{
+	t_shell	*shell;
+
+	shell = ft_calloc(1, sizeof(t_shell));
+	if (!shell)
+		return (1);
+	shell->first_run = 1;
+	while (!shell->exit)
+		next_run(shell);
 	return (0);
 }
 

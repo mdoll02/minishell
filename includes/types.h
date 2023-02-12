@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:16:48 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/02/12 23:14:00 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/12 23:18:01 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#ifndef TYPES_H
+# define TYPES_H
 
-# include "types.h"
+typedef struct s_shell
+{
+	int	first_run;
+	int	last_status;
+	int	exit;
+}	t_shell;
 
-int	execute(t_shell *shell, char *line);
-
-#endif //EXECUTION_H
+#endif //TYPES_H
