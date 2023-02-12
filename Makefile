@@ -18,6 +18,7 @@ SRC = main.c \
 	  builtins/exit.c \
 	  builtins/cd.c \
 	  parsing/parse_command.c \
+	  env/load_env.c \
 	  env/get_env.c \
 	  env/set_env.c \
 	  env/clear_env.c \

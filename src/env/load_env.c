@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   load_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 23:03:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:37:45 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/02/13 00:35:51 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/13 00:41:07 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include <stdlib.h>
+#include "environment.h"
+#include "libft.h"
 
-#include "types.h"
+void	load_env(t_shell *shell, char **envp)
+{
+	char		**env;
+	char		*key;
+	char		*value;
 
-void	load_env(t_shell *shell, char **envp);
-char	*get_env(t_env *environment, char *key);
-void	set_env(t_shell *shell, char *key, const char *value);
-void	clear_env(t_env **environment);
-
-#endif //ENVIRONMENT_H
+	env = envp;
+	while (*env)
+	{
+		key = ft_strndup(*env, ft_strchr(*env, '=') - *env);
+		value = ft_strchr(*env, '=') + 1;
+		set_env(shell, key, value);
+		free(key);
+		env++;
+	}
+}
