@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:41:19 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/02/12 23:24:39 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/12 23:47:29 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#include <stdio.h>
+#include "builtins.h"
 
-# include "types.h"
-# include "builtins.h"
+int	echo_builtin(t_shell *shell, t_cmd *cmd)
+{
+	int	i;
 
-const static t_builtin	g_builtins[] = {
-{"exit", exit_builtin},
-{"echo", echo_builtin},
-{0}
-};
-
-int	execute(t_shell *shell, char *line);
-
-#endif //EXECUTION_H
+	(void)shell;
+	i = 1;
+	while (cmd->args[i])
+	{
+		printf("%s", cmd->args[i]);
+		if (cmd->args[i + 1])
+			printf(" ");
+		i++;
+	}
+	printf("\n");
+	return (0);
+}

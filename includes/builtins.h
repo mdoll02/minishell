@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:41:19 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/02/12 23:34:03 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/12 23:39:04 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
 # include "types.h"
-# include "builtins.h"
 
-const static t_builtin	g_builtins[] = {
-{"exit", exit_builtin},
-{"echo", echo_builtin},
-{0}
-};
+typedef struct s_builtin
+{
+	char	*name;
+	int		(*func)(t_shell *shell, t_cmd *cmd);
+}	t_builtin;
 
-int	execute(t_shell *shell, char *line);
+int	echo_builtin(t_shell *shell, t_cmd *cmd);
+int	exit_builtin(t_shell *shell, t_cmd *cmd);
 
-#endif //EXECUTION_H
+#endif //BUILTINS_H

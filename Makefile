@@ -13,7 +13,10 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRC = main.c \
-	  execution.c
+	  execution.c \
+	  builtins/echo.c \
+	  builtins/exit.c \
+	  parsing/parse_command.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
@@ -25,7 +28,8 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(DEPENDENCIES)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/builtins
+	@mkdir -p $(OBJ_DIR)/parsing
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 	@echo "Compiling $<"
 

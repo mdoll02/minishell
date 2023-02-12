@@ -20,4 +20,10 @@ typedef struct s_shell
 	int	exit;
 }	t_shell;
 
+typedef struct s_cmd
+{
+	char	*name;
+	char	**args;
+}	t_cmd;
+
 #endif //TYPES_H

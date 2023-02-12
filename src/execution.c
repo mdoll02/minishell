@@ -6,30 +6,38 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:26:36 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/12 23:43:39 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execution.h"
 #include "libft.h"
+#include "parsing.h"
 
-int	check_builtin(t_shell *shell, char *line, int *status)
+int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 {
-	if (ft_memcmp(line, "exit", 5) == 0 || ft_memcmp(line, "exit ", 5) == 0)
+	int	i;
+
+	i = 0;
+	while (g_builtins[i].name)
 	{
-		shell->exit = 1;
-		*status = 0;
+		if (ft_strncmp(g_builtins[i].name, cmd->name, 1000) == 0)
+		{
+			*status = g_builtins[i].func(shell, cmd);
+			return (1);
+		}
+		i++;
 	}
-	else
-		return (0);
-	return (1);
+	return (0);
 }
 
 int	execute(t_shell *shell, char *line)
 {
-	int	status;
+	int		status;
+	t_cmd	cmd;
 
-	if (check_builtin(shell, line, &status))
+	parse_command(line, &cmd);
+	if (check_builtin(shell, &cmd, &status))
 		return (status);
 	return (1);
 }

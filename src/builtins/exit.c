@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:41:19 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/02/12 23:36:49 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/12 23:40:11 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#include "libft.h"
+#include "builtins.h"
 
-# include "types.h"
-# include "builtins.h"
-
-const static t_builtin	g_builtins[] = {
-{"exit", exit_builtin},
-{"echo", echo_builtin},
-{0}
-};
-
-int	execute(t_shell *shell, char *line);
-
-#endif //EXECUTION_H
+int	exit_builtin(t_shell *shell, t_cmd *cmd)
+{
+	shell->exit = 1;
+	if (cmd->args[1])
+		return (ft_atoi(cmd->args[1]));
+	else
+		return (0);
+}
