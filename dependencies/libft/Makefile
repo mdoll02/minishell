@@ -46,6 +46,7 @@ SRCS = ft_memset.c \
 	   ft_putnbr_fd.c \
 	   ft_free_split.c \
 	   ft_arraylen.c \
+	   ft_strndup.c \
 
 SRCSB = ft_lstnew.c \
 		ft_lstadd_front.c \
