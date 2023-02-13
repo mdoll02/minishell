@@ -16,7 +16,7 @@
 #include "environment.h"
 #include "libft.h"
 
-int	pwd_builtin(t_shell *shell, t_cmd *cmd)
+int	pwd_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	char	*pwd;
 

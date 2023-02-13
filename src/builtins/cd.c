@@ -18,7 +18,7 @@
 #include "libft.h"
 #include "environment.h"
 
-int	cd_builtin(t_shell *shell, t_cmd *cmd)
+int	cd_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	char	*path;
 	char	*oldpwd;

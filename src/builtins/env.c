@@ -13,7 +13,7 @@
 #include <printf.h>
 #include "types.h"
 
-int	env_builtin(t_shell *shell, t_cmd *cmd)
+int	env_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	t_env	*env;
 

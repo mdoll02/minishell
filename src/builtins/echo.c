@@ -14,7 +14,7 @@
 #include "builtins.h"
 #include "libft.h"
 
-int	echo_builtin(t_shell *shell, t_cmd *cmd)
+int	echo_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	int	i;
 	int	n_flag;
