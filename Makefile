@@ -25,6 +25,7 @@ SRC = main.c \
 	  env/get_env.c \
 	  env/set_env.c \
 	  env/clear_env.c \
+	  env/remove_env.c \
 	  utils/get_shell_dir.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
