@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/12 23:43:39 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 03:55:10 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 	return (0);
 }
 
-int	execute(t_shell *shell, char *line)
+int	execute(t_shell *shell, char *line, int *status)
 {
-	int		status;
 	t_cmd	cmd;
 
+	if (!line || !*line)
+		return (0);
 	parse_command(line, &cmd);
-	if (check_builtin(shell, &cmd, &status))
-		return (status);
+	if (check_builtin(shell, &cmd, status))
+		return (0);
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putendl_fd(cmd.name, 2);
+	*status = 1;
 	return (1);
 }

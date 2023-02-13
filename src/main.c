@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:48:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 01:10:00 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 03:53:21 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ static void	next_run(t_shell *shell)
 		else
 			printf("OK ");
 	}
+	else
+		shell->first_run = 0;
 	shell_dir = get_shell_dir(shell);
 	printf("minishell [%s]", shell_dir);
 	free((char *)shell_dir);
 	line = readline("$ ");
-	shell->last_status = execute(shell, line);
+	execute(shell, line, &shell->last_status);
 	free(line);
 }
 

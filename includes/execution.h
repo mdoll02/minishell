@@ -16,6 +16,6 @@
 # include "types.h"
 # include "builtins.h"
 
-int	execute(t_shell *shell, char *line);
+int	execute(t_shell *shell, char *line, int *status);
 
 #endif //EXECUTION_H
