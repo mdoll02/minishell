@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:48:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:42:37 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 01:10:00 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,24 @@
 #include "types.h"
 #include "libft.h"
 #include "environment.h"
+#include "utils.h"
 
 static void	next_run(t_shell *shell)
 {
-	char	*line;
+	char		*line;
+	const char	*shell_dir;
 
-	if (shell->first_run)
+	if (!shell->first_run)
 	{
-		shell->first_run = 0;
-		line = readline("minishell$ ");
+		if (shell->last_status)
+			printf("KO ");
+		else
+			printf("OK ");
 	}
-	else if (shell->last_status)
-		line = readline("KO minishell$ ");
-	else
-		line = readline("OK minishell$ ");
+	shell_dir = get_shell_dir(shell);
+	printf("minishell [%s]", shell_dir);
+	free((char *)shell_dir);
+	line = readline("$ ");
 	shell->last_status = execute(shell, line);
 	free(line);
 }

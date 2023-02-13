@@ -23,6 +23,7 @@ SRC = main.c \
 	  env/get_env.c \
 	  env/set_env.c \
 	  env/clear_env.c \
+	  utils/get_shell_dir.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
@@ -37,6 +38,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/builtins
 	@mkdir -p $(OBJ_DIR)/parsing
 	@mkdir -p $(OBJ_DIR)/env
+	@mkdir -p $(OBJ_DIR)/utils
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 	@echo "Compiling $<"
 
