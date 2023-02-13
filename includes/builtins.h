@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:34:03 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:53:44 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 03:46:21 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ int	echo_builtin(t_shell *shell, t_cmd *cmd);
 int	exit_builtin(t_shell *shell, t_cmd *cmd);
 int	cd_builtin(t_shell *shell, t_cmd *cmd);
 int	ls_builtin(t_shell *shell, t_cmd *cmd);
+int	pwd_builtin(t_shell *shell, t_cmd *cmd);
 
 const static t_builtin	g_builtins[] = {
 {"exit", exit_builtin},
 {"echo", echo_builtin},
 {"cd", cd_builtin},
 {"ls", ls_builtin},
+{"pwd", pwd_builtin},
 {0}
 };
 
