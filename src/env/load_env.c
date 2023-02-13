@@ -6,13 +6,13 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:35:51 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:41:07 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 04:38:22 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "environment.h"
-#include "libft.h"
+#include "parsing.h"
 
 void	load_env(t_shell *shell, char **envp)
 {
@@ -23,8 +23,7 @@ void	load_env(t_shell *shell, char **envp)
 	env = envp;
 	while (*env)
 	{
-		key = ft_strndup(*env, ft_strchr(*env, '=') - *env);
-		value = ft_strchr(*env, '=') + 1;
+		parse_env_var(*env, &key, &value);
 		set_env(shell, key, value);
 		free(key);
 		env++;
