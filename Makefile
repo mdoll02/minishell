@@ -20,6 +20,8 @@ SRC = main.c \
 	  builtins/ls.c \
 	  builtins/pwd.c \
 	  builtins/env.c \
+	  builtins/unset.c \
+	  builtins/export.c \
 	  parsing/parse_command.c \
 	  parsing/parse_env_var.c \
 	  env/load_env.c \

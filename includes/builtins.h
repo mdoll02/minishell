@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:34:03 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 04:07:23 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/13 04:34:02 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	ls_builtin(t_shell *shell, const t_cmd *cmd);
 int	pwd_builtin(t_shell *shell, const t_cmd *cmd);
 int	env_builtin(t_shell *shell, const t_cmd *cmd);
 int	unset_builtin(t_shell *shell, const t_cmd *cmd);
+int	export_builtin(t_shell *shell, const t_cmd *cmd);
 
 const static t_builtin	g_builtins[] = {
 {"exit", exit_builtin},
@@ -37,6 +38,7 @@ const static t_builtin	g_builtins[] = {
 {"pwd", pwd_builtin},
 {"env", env_builtin},
 {"unset", unset_builtin},
+{"export", export_builtin},
 {0}
 };
 

@@ -34,7 +34,7 @@ int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 
 static int	execute_internal(t_shell *shell, t_cmd *cmd, int *status)
 {
-	if (check_builtin(shell, &cmd, status))
+	if (check_builtin(shell, cmd, status))
 		return (0);
 	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putendl_fd(cmd->name, 2);
