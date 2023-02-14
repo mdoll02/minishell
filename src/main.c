@@ -6,12 +6,13 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:48:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 03:53:21 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:20:56 by kx               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include "execution.h"
 #include "types.h"
