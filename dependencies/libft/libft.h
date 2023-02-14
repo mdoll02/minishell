@@ -6,7 +6,7 @@
 /*   By: kschmidt <kschmidt@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:00:23 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:40:08 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:29:29 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 
 // Additional Functions
-int	ft_arraylen(char **array);
+int		ft_arraylen(char **array);
 
 // BONUS 🎉🎉🥳🥳
 
