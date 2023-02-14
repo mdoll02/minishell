@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:34:03 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 04:34:02 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:21:47 by kx               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	env_builtin(t_shell *shell, const t_cmd *cmd);
 int	unset_builtin(t_shell *shell, const t_cmd *cmd);
 int	export_builtin(t_shell *shell, const t_cmd *cmd);
 
-const static t_builtin	g_builtins[] = {
+static const t_builtin	g_builtins[] = {
 {"exit", exit_builtin},
 {"echo", echo_builtin},
 {"cd", cd_builtin},

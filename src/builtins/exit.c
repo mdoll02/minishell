@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "builtins.h"
 
-int	exit_builtin(t_shell *shell, t_cmd *cmd)
+int	exit_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	shell->exit = 1;
 	if (cmd->args[1])

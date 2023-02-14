@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:12:12 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:57:48 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:22:06 by kx               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	print_dir(char *path)
 	}
 }
 
-int	ls_builtin(t_shell *shell, t_cmd *cmd)
+int	ls_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	char	*path;
 
