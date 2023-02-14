@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
+#include <stdio.h>
 #include "types.h"
 
 int	env_builtin(t_shell *shell, const t_cmd *cmd)
