@@ -24,7 +24,7 @@ int	unset_builtin(t_shell *shell, const t_cmd *cmd)
 		ft_putstr_fd("unset: not enough arguments\n", STDERR_FILENO);
 		return (1);
 	}
-	i = 0;
+	i = 1;
 	while (cmd->args[i])
 	{
 		if (ft_strchr(cmd->args[i], '='))
