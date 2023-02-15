@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 01:28:15 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/14 01:28:21 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:58:30 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ int	set_env_vars(t_shell *shell, const char *path)
 		ft_putstr_fd("\n", 2);
 		return (1);
 	}
-	oldpwd = get_env(shell->env, "PWD");
+	oldpwd = get_env(shell->secret_env, "PWD");
 	pwd = getcwd(0, 0);
 	set_env(shell, "OLDPWD", oldpwd);
 	set_env(shell, "PWD", pwd);
+	set_secret_env(shell, "OLDPWD", oldpwd);
+	set_secret_env(shell, "PWD", pwd);
 	free(oldpwd);
 	free(pwd);
 	return (0);
@@ -51,7 +53,7 @@ int	cd_builtin(t_shell *shell, const t_cmd *cmd)
 		return (1);
 	}
 	if (cmd->argc == 1)
-		path = get_env(shell->env, "HOME");
+		path = get_env(shell->secret_env, "HOME");
 	else
 		path = cmd->args[1];
 	if (!path)

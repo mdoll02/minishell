@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:14:00 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:06:11 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:46:06 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_shell
 	int		exit;
 	int		envc;
 	t_env	*env;
+	int		secret_envc;
+	t_env	*secret_env;
 }	t_shell;
 
 typedef struct s_cmd

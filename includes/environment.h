@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:03:49 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 04:21:25 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:49:02 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void		load_env(t_shell *shell, char **envp);
 char		*get_env(t_env *environment, char *key);
 const char	*get_env_nc(t_env *environment, char *key);
 void		set_env(t_shell *shell, char *key, const char *value);
+void		set_secret_env(t_shell *shell, char *key, const char *value);
 void		remove_env(t_shell *shell, const char *key);
+void		remove_secret_env(t_shell *shell, const char *key);
 void		clear_env(t_env **environment);
 
 #endif //ENVIRONMENT_H

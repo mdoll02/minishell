@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:35:51 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 04:38:22 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:50:20 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void	load_env(t_shell *shell, char **envp)
 	char		*value;
 
 	env = envp;
+	shell->envc = 0;
+	shell->secret_envc = 0;
 	while (*env)
 	{
 		parse_env_var(*env, &key, &value);
 		set_env(shell, key, value);
+		set_secret_env(shell, key, value);
 		free(key);
 		env++;
 	}
