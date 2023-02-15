@@ -53,13 +53,12 @@ static int	minishell(char **environ)
 	while (!shell->exit)
 		next_run(shell);
 	clear_env(&shell->env);
-	return (0);
+	return (shell->last_status);
 }
 
 int	main(int argc, char **argv, char **environ)
 {
 	(void)argc;
 	(void)argv;
-	minishell(environ);
-	return (0);
+	return (minishell(environ));
 }
