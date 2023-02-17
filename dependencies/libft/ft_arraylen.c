@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_arraylen(char **array)
+int	ft_arraylen(void **array)
 {
 	int	i;
 
+	if (!array)
+		return (0);
 	i = 0;
 	while (array[i])
 		i++;
