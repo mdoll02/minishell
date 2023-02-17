@@ -20,9 +20,9 @@ int	echo_builtin(t_shell *shell, const t_cmd *cmd)
 	int	n_flag;
 
 	(void)shell;
-	i = 1;
+	i = 0;
 	n_flag = 0;
-	if (cmd->args[1] && ft_strncmp(cmd->args[1], "-n", 2) == 0)
+	if (cmd->args[0] && ft_strncmp(cmd->args[0], "-n", 2) == 0)
 	{
 		n_flag = 1;
 		i++;

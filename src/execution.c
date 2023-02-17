@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 04:27:12 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/17 07:45:34 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ int	execute(t_shell *shell, char *line, int *status)
 
 	if (!line || !*line)
 		return (0);
-	parse_command(line, &cmd);
+	if (parse_command(line, &cmd))
+	{
+		*status = 1;
+		return (1);
+	}
 	result = execute_internal(shell, &cmd, status);
 	ft_free_split(cmd.args);
 	free(cmd.name);

@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:31:21 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 04:38:35 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/17 07:03:40 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,9 @@
 
 int		parse_command(char *line, t_cmd *cmd);
 void	parse_env_var(char *env, char **key, char **value);
+
+char	*parse_next_arg(char *arg_start, int *offset);
+char	*get_arg_end(char *line);
+char	*remove_arg_quotes(char *str);
 
 #endif //PARSING_H

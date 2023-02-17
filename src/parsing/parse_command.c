@@ -6,49 +6,57 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:27:19 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/16 21:50:31 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/17 07:50:41 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 #include "parsing.h"
 
-char	*parse_name(char *line)
+static char	**parse_args_rec(char *arg_start, int i, int j)
 {
-	int		quotes;
-	int		single_quotes;
-	char	*name_end;
+	char	**args;
+	char	*arg;
 
-	quotes = 0;
-	single_quotes = 0;
-	name_end = line;
-	while (*name_end && (*name_end != ' ' || quotes % 2 || single_quotes % 2))
+	if (!arg_start[j])
 	{
-		if (*name_end == '"' && !single_quotes)
-			quotes++;
-		if (*name_end == '\'' && !quotes)
-			single_quotes++;
-		name_end++;
+		args = ft_calloc(i, sizeof(char *));
+		if (!args)
+			return (0);
+		args[i] = 0;
+		return (args);
 	}
-	if (quotes % 2 || single_quotes % 2)
+	arg = parse_next_arg(arg_start, &j);
+	if (!arg)
 		return (0);
-	return (name_end);
+	args = parse_args_rec(arg_start, i + 1, j);
+	if (!args)
+	{
+		free(arg);
+		return (0);
+	}
+	args[i] = arg;
+	return (args);
 }
 
 int	parse_command(char *line, t_cmd *cmd)
 {
 	int	i;
-	int	start;
 
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	start = i;
-	i = (int)(parse_name(line + i) - line);
-	if (i <= start)
+	cmd->name = parse_next_arg(line, &i);
+	if (!cmd->name)
 		return (1);
-	cmd->name = ft_substr(line, start, i); // TODO: remove quotes from substr
-	cmd->args = ft_split(line, ' ');
+	cmd->args = parse_args_rec(line + i, 0, 0);
+	if (!cmd->args)
+	{
+		free(cmd->name);
+		cmd->name = 0;
+		return (1);
+	}
 	cmd->argc = ft_arraylen(cmd->args);
 	return (0);
 }
