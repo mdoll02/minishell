@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 06:50:38 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/17 06:52:08 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:15:26 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,8 @@ char	*remove_arg_quotes(char *str)
 			quotes = !quotes;
 		if (str[i] == '\'' && !quotes)
 			single_quotes = !single_quotes;
-		if (str[i] != '"' && str[i] != '\'')
-		{
-			str[j] = str[i];
-			j++;
-		}
+		if ((str[i] != '"' || single_quotes) && (str[i] != '\'' || quotes))
+			str[j++] = str[i];
 		i++;
 	}
 	str[j] = 0;
