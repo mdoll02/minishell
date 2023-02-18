@@ -21,7 +21,7 @@ static char	**parse_args_rec(char *arg_start, int i, int j)
 
 	if (!arg_start[j])
 	{
-		args = ft_calloc(i, sizeof(char *));
+		args = ft_calloc(i + 1, sizeof(char *));
 		if (!args)
 			return (0);
 		args[i] = 0;
