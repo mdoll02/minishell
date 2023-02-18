@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:14:00 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/15 17:46:06 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/18 08:27:01 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 typedef struct s_env
 {
 	char			*name;
-	char			*value;
 	struct s_env	*next;
+	char			*value;
 }	t_env;
 
 typedef struct s_shell
