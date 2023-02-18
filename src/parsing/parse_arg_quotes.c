@@ -32,7 +32,7 @@ char	*get_arg_end(char *line)
 	return (name_end);
 }
 
-char	*remove_arg_quotes(char *str)
+void	remove_arg_quotes(char *str)
 {
 	int		i;
 	int		j;
@@ -54,5 +54,4 @@ char	*remove_arg_quotes(char *str)
 		i++;
 	}
 	str[j] = 0;
-	return (str);
 }
