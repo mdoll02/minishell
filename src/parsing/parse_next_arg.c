@@ -18,7 +18,6 @@ char	*parse_next_arg(char *arg_start, int *offset)
 {
 	char	*name_end;
 	char	*arg;
-	char	*tmp;
 
 	while (arg_start[*offset] && (arg_start[*offset] == ' '
 			|| arg_start[*offset] == '\t'))
@@ -26,8 +25,8 @@ char	*parse_next_arg(char *arg_start, int *offset)
 	name_end = get_arg_end(arg_start + *offset);
 	if (!name_end)
 		return (0);
-	tmp = ft_substr(arg_start, *offset, name_end - (arg_start + *offset));
-	arg = remove_arg_quotes(tmp);
+	arg = ft_substr(arg_start, *offset, name_end - (arg_start + *offset));
+	remove_arg_quotes(arg);
 	*offset = (int)(name_end - arg_start);
 	return (arg);
 }
