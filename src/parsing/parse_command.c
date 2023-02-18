@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:27:19 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/17 07:50:41 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/18 06:10:08 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	**parse_args_rec(char *arg_start, int i, int j)
 	return (args);
 }
 
-int	parse_command(char *line, t_cmd *cmd)
+int	parse_command(char *line, t_cmd *cmd, t_shell *shell)
 {
 	int	i;
 
@@ -57,6 +57,7 @@ int	parse_command(char *line, t_cmd *cmd)
 		cmd->name = 0;
 		return (1);
 	}
+	parse_arg_env(cmd->args, shell);
 	cmd->argc = ft_arraylen(cmd->args);
 	return (0);
 }
