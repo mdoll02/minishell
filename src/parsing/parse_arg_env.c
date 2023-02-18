@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:35:30 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/18 06:22:37 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/18 08:12:30 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*parse_env_key(char *t)
 	int		i;
 
 	i = 0;
-	while (t[i] && t[i] != ' ' && t[i] != '\t')
+	while (t[i] && t[i] != ' ' && t[i] != '\t' && t[i] != '$' && t[i] != '"')
 		i++;
 	key = malloc(i + 1);
 	ft_strlcpy(key, t, i + 1);
