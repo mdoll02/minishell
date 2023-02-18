@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:35:30 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/18 08:12:30 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/18 08:14:42 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ static void	replace_arg_env(char **original, t_shell *shell)
 				o = insert_last_status(original, o, shell->last_status);
 			else
 				o = insert_env_var(original, o, shell->env);
+			o--;
 		}
 		o++;
 	}
