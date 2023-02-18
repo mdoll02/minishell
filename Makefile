@@ -27,6 +27,7 @@ SRC = main.c \
 	  parsing/parse_next_arg.c \
 	  parsing/parse_arg_quotes.c \
 	  parsing/parse_arg_env.c \
+	  parsing/get_exec_path.c \
 	  env/load_env.c \
 	  env/get_env.c \
 	  env/set_env.c \
@@ -40,7 +41,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "OBJ: $(OBJ)"
-	@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR) bonus
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(DEPENDENCIES)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

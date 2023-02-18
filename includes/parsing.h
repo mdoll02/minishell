@@ -24,4 +24,6 @@ char	*get_arg_end(char *line);
 char	*remove_arg_quotes(char *str);
 void	parse_arg_env(char **args, t_shell *shell);
 
+char	*get_exec_path(char *name, t_env *env);
+
 #endif //PARSING_H

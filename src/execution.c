@@ -6,16 +6,17 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/17 07:45:34 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/18 08:32:00 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "../includes/execution.h"
 #include "libft.h"
 #include "parsing.h"
 
-int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
+static int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 {
 	int	i;
 
@@ -32,10 +33,44 @@ int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 	return (0);
 }
 
+static int	execute_command_child(t_cmd *cmd, t_env *env)
+{
+	char	**envp;
+	int		i;
+	int		result;
+
+	i = 0;
+	envp = malloc(sizeof(char *) * (ft_lstsize((t_list *) env) + 1));
+	if (!envp)
+		return (1);
+	while (env)
+	{
+		envp[i] = ft_strnjoin(3, env->name, "=", env->value);
+		if (!envp[i])
+			return (1);
+		env = env->next;
+		i++;
+	}
+	envp[i] = 0;
+	result = execve(cmd->name, cmd->args, envp);
+	ft_free_split(envp);
+	return (result);
+}
+
 static int	execute_internal(t_shell *shell, t_cmd *cmd, int *status)
 {
+	char	*exec_path;
+
 	if (check_builtin(shell, cmd, status))
 		return (0);
+	exec_path = get_exec_path(cmd->name, shell->env);
+	if (exec_path)
+	{
+		free(cmd->name);
+		cmd->name = exec_path;
+		*status = execute_command_child(cmd, shell->env);
+		return (0);
+	}
 	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putendl_fd(cmd->name, 2);
 	*status = 1;

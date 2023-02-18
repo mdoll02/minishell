@@ -6,7 +6,7 @@
 /*   By: kschmidt <kschmidt@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:00:23 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/14 01:29:29 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/02/18 08:58:13 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, size_t n);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strnjoin(int n, ...);
 char	*ft_strtrim(const char *s1, const char *set);
 char	**ft_split(const char *s, char c);
 void	ft_free_split(char **split);
