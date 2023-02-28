@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 00:12:12 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/14 01:22:06 by kx               ###   ########.fr       */
+/*   Created: 2023/02/28 19:13:14 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/02/28 19:17:47 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	print_dir(char *path)
 	struct dirent	*ent;
 
 	dir = opendir(path);
-	if (dir != NULL)
+	if (!dir)
 	{
 		ent = readdir(dir);
-		while (ent != NULL)
+		while (!ent)
 		{
 			printf("%s ", ent->d_name);
 			ent = readdir(dir);
@@ -32,9 +32,7 @@ static void	print_dir(char *path)
 		closedir(dir);
 	}
 	else
-	{
 		printf("Error: could not open directory\n");
-	}
 }
 
 int	ls_builtin(t_shell *shell, const t_cmd *cmd)
