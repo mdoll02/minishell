@@ -16,5 +16,5 @@
 int	exit_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	shell->exit = 1;
-	return (ft_atoi(cmd->args[1]));
+	return (ft_atoi(cmd->args[0]));
 }

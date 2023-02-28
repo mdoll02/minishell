@@ -42,10 +42,10 @@ int	ls_builtin(t_shell *shell, const t_cmd *cmd)
 	char	*path;
 
 	(void)shell;
-	if (cmd->argc == 1)
+	if (cmd->argc == 0)
 		path = ".";
 	else
-		path = cmd->args[1];
+		path = cmd->args[0];
 	print_dir(path);
 	return (0);
 }

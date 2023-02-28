@@ -20,7 +20,7 @@ int	pwd_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	char	*pwd;
 
-	if (cmd->args[1])
+	if (cmd->args[0])
 	{
 		ft_putendl_fd("pwd: too many arguments", STDERR_FILENO);
 		return (1);

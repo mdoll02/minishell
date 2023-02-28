@@ -47,15 +47,15 @@ int	cd_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	char	*path;
 
-	if (cmd->argc > 2)
+	if (cmd->argc > 1)
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
-	if (cmd->argc == 1)
+	if (!cmd->argc)
 		path = get_env(shell->secret_env, "HOME");
 	else
-		path = cmd->args[1];
+		path = cmd->args[0];
 	if (!path)
 	{
 		ft_putstr_fd("cd: HOME not set\n", 2);
