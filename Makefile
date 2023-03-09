@@ -17,7 +17,6 @@ SRC = main.c \
 	  builtins/echo.c \
 	  builtins/exit.c \
 	  builtins/cd.c \
-	  builtins/ls.c \
 	  builtins/pwd.c \
 	  builtins/env.c \
 	  builtins/unset.c \

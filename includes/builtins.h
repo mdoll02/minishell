@@ -34,7 +34,6 @@ static const t_builtin	g_builtins[] = {
 {"exit", exit_builtin},
 {"echo", echo_builtin},
 {"cd", cd_builtin},
-{"ls", ls_builtin},
 {"pwd", pwd_builtin},
 {"env", env_builtin},
 {"unset", unset_builtin},
