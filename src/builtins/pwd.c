@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 03:45:46 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 03:48:40 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:50:04 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ int	pwd_builtin(t_shell *shell, const t_cmd *cmd)
 {
 	char	*pwd;
 
+	(void) shell;
 	if (cmd->args[0])
 	{
 		ft_putendl_fd("pwd: too many arguments", STDERR_FILENO);
 		return (1);
 	}
-	pwd = get_env(shell->env, "PWD");
+	pwd = getcwd(0, 0);
 	ft_putendl_fd(pwd, STDOUT_FILENO);
 	free(pwd);
 	return (0);
