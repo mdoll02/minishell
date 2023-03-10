@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 17:41:09 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:32:34 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,21 @@ static int	execute_internal(t_shell *shell, t_cmd *cmd, int *status)
 
 int	execute(t_shell *shell, char *line, int *status)
 {
-	t_cmd	cmd;
+	t_cmd	*cmd;
 	int		result;
-	char	*next_cmd;
+	int		i;
 
 	if (!line || !*line)
 		return (0);
-	next_cmd = parse_next_command(line, &cmd, shell);
-	if (!next_cmd)
+	cmd = get_commands(shell, line);
+	if (!cmd)
 	{
 		*status = 1;
 		return (1);
 	}
-	result = execute_internal(shell, &cmd, status);
-	ft_free_split(cmd.args);
-	free(cmd.name);
+	i = 0;
+	while (cmd[i].name)
+		result = execute_internal(shell, &cmd[i++], status);
+	free_commands(cmd);
 	return (result);
 }
