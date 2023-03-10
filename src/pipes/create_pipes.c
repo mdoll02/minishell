@@ -47,48 +47,31 @@ int	pipes(t_shell *shell, t_cmd *cmd)
 	t_pipex	pipex;
 	int		cmd_count;
 
-	if (argc < 5)
-		error("Invalid number of arguments");
-	cmd_count = 2;
-	pipex.argv = argv;
-	pipex.envp = envp;
-	pipex.argc = argc;
-	open_files(&pipex, argv, argc);
-	pipex.env_paths = get_env_paths(envp);
-	dup2(pipex.fd_infile, STDIN_FILENO);
-	while (cmd_count < argc - 2)
-	{
-		ft_pipex(pipex, cmd_count);
-		cmd_count++;
-	}
-	dup2(pipex.fd_outfile, STDOUT_FILENO);
-	execute(argv[argc - 2], pipex);
-	return (0);
-}
-
-// this calls the function that is responsible for executing and parsing
-void	ft_pipex(t_pipex pipex, int cmd_count)
+void	call_child_process(t_cmd *cmd, int counter, t_shell *shell, int *status)
 {
-	int		pipe_ret;
+	int		pid;
 	int		end[2];
 
-	pipe_ret = pipe(end);
-	if (pipe_ret == -1)
-		error("error while creating pipe");
-	pipex.pid = fork();
-	if (pipex.pid == -1)
-		error("error while forking");
-	if (pipex.pid == 0)
+	*status = pipe(end);
+	if (*status == -1)
+		return ;
+	pid = fork();
+	if (pid == -1)
+	{
+		*status = pid;
+		return ;
+	}
+	if (pid == 0)
 	{
 		close(end[0]);
 		dup2(end[1], STDOUT_FILENO);
-		execute(pipex.argv[cmd_count], pipex);
+		execute(shell, cmd->args[counter], status);
 	}
 	else
 	{
 		close(end[1]);
 		dup2(end[0], STDIN_FILENO);
-		waitpid(pipex.pid, NULL, WNOHANG);
+		waitpid(pid, NULL, WNOHANG);
 	}
 }
 
