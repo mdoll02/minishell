@@ -24,7 +24,6 @@ typedef struct s_builtin
 int	echo_builtin(t_shell *shell, const t_cmd *cmd);
 int	exit_builtin(t_shell *shell, const t_cmd *cmd);
 int	cd_builtin(t_shell *shell, const t_cmd *cmd);
-int	ls_builtin(t_shell *shell, const t_cmd *cmd);
 int	pwd_builtin(t_shell *shell, const t_cmd *cmd);
 int	env_builtin(t_shell *shell, const t_cmd *cmd);
 int	unset_builtin(t_shell *shell, const t_cmd *cmd);
