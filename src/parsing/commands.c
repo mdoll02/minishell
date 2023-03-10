@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <malloc.h>
+#include <stdlib.h>
 #include "types.h"
 #include "parsing.h"
 #include "libft.h"
