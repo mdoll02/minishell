@@ -16,16 +16,13 @@
 #include "environment.h"
 #include "libft.h"
 
-#define MAX_PATH_LEN 1024
-
 char	*get_shell_dir(t_shell *shell)
 {
 	char		*shell_dir;
 	const char	*home_dir;
 	size_t		home_dir_len;
 
-	shell_dir = malloc(MAX_PATH_LEN * sizeof(char));
-	shell_dir = getcwd((char *)shell_dir, MAX_PATH_LEN);
+	shell_dir = getcwd(0, 0);
 	home_dir = get_env_nc(shell->secret_env, "HOME");
 	home_dir_len = ft_strlen(home_dir);
 	if (ft_strncmp(shell_dir, home_dir, home_dir_len) == 0)
