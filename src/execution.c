@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 17:37:06 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:41:09 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../includes/execution.h"
 #include "libft.h"
 #include "parsing.h"
+#include "environment.h"
 
 static int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 {
@@ -41,24 +42,11 @@ static int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 static int	execute_command_child(t_cmd *cmd, t_env *env)
 {
 	char	**envp;
-	int		i;
 	int		result;
 	pid_t	pid;
 
 	result = -1;
-	i = 0;
-	envp = malloc(sizeof(char *) * (ft_lstsize((t_list *) env) + 1));
-	if (!envp)
-		return (1);
-	while (env)
-	{
-		envp[i] = ft_strnjoin(3, env->name, "=", env->value);
-		if (!envp[i])
-			return (1);
-		env = env->next;
-		i++;
-	}
-	envp[i] = 0;
+	envp = export_env(env);
 	pid = fork();
 	if (pid == 0)
 		execve(cmd->name, cmd->args, envp);

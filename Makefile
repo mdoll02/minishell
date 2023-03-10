@@ -32,6 +32,7 @@ SRC = main.c \
 	  env/set_env.c \
 	  env/clear_env.c \
 	  env/remove_env.c \
+	  env/export_env.c \
 	  utils/get_shell_dir.c \
 	  #pipes/create_pipes.c
 
