@@ -33,6 +33,7 @@ SRC = main.c \
 	  env/clear_env.c \
 	  env/remove_env.c \
 	  utils/get_shell_dir.c \
+	  #pipes/create_pipes.c
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
