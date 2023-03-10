@@ -14,10 +14,35 @@
 // argc, argv, envp
 // TODO get them pipes working
 
-
 #include <stdio.h>
+#include "types.h"
 
-int	pipes(int argc, char **argv, char **envp)
+// line 37 / 38 for syntax error?
+static int	nb_of_pipes(char **args)
+{
+	int		nb_of_pipes;
+	int		index_args;
+	int		index_chars;
+
+	nb_of_pipes = 0;
+	index_args = 0;
+	while (args[index_args])
+	{
+		index_chars = 0;
+		while (args[index_args][index_chars])
+		{
+			if (args[index_args][index_chars] == '|')
+				nb_of_pipes++;
+			index_chars++;
+			if (nb_of_pipes != 1)
+				return (-1);
+		}
+		index_args++;
+	}
+	return (nb_of_pipes);
+}
+
+int	pipes(t_shell *shell, t_cmd *cmd)
 {
 	t_pipex	pipex;
 	int		cmd_count;
