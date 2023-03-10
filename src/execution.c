@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 12:16:54 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:01:11 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	execute(t_shell *shell, char *line, int *status)
 {
 	t_cmd	cmd;
 	int		result;
-	char*	next_cmd;
+	char	*next_cmd;
 
 	if (!line || !*line)
 		return (0);
