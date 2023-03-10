@@ -12,7 +12,6 @@
 
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 char	**split_rec(const char *cur, char c, int depth)
 {

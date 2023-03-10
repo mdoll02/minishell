@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "builtins.h"
-#include "environment.h"
 #include "libft.h"
 
 int	pwd_builtin(t_shell *shell, const t_cmd *cmd)

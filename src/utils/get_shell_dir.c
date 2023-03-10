@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <malloc.h>
 #include "utils.h"
 #include "environment.h"
 #include "libft.h"
