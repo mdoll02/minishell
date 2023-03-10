@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 13:01:11 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:28:11 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ static int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 	{
 		if (ft_strncmp(g_builtins[i].name, cmd->name, 1000) == 0)
 		{
+			cmd->args++;
+			cmd->argc--;
 			*status = g_builtins[i].func(shell, cmd);
+			cmd->args--;
+			cmd->argc++;
 			return (1);
 		}
 		i++;

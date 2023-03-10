@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:27:19 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 12:59:38 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:25:47 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*parse_next_command(char *line, t_cmd *cmd, t_shell *shell)
 	cmd->name = parse_next_arg(line, &i, shell);
 	if (!cmd->name)
 		return (0);
-	cmd->args = parse_all_args(line + i, 0, 0, shell);
+	cmd->args = parse_all_args(line, 0, 0, shell);
 	if (!cmd->args)
 	{
 		free(cmd->name);
