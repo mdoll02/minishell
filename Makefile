@@ -24,7 +24,7 @@ SRC = main.c \
 	  parsing/parse_command.c \
 	  parsing/parse_env_var.c \
 	  parsing/parse_next_arg.c \
-	  parsing/parse_arg_quotes.c \
+	  parsing/get_arg_end.c \
 	  parsing/parse_arg_env.c \
 	  parsing/get_exec_path.c \
 	  env/load_env.c \

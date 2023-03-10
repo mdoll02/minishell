@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 06:50:38 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/17 08:15:26 by kschmidt         ###   ########.fr       */
+/*   Created: 2023/03/10 12:46:00 by kschmidt          #+#    #+#             */
+/*   Updated: 2023/03/10 12:51:14 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "parsing.h"
 
 char	*get_arg_end(char *line)
 {
@@ -19,8 +21,10 @@ char	*get_arg_end(char *line)
 	quotes = 0;
 	single_quotes = 0;
 	name_end = line;
-	while (*name_end && (*name_end != ' ' || quotes % 2 || single_quotes % 2))
+	while (*name_end && ((*name_end != ' ') || quotes % 2 || single_quotes % 2))
 	{
+		if (!single_quotes && !quotes && is_cmd_end(0, name_end))
+			return (name_end);
 		if (*name_end == '"' && !single_quotes)
 			quotes++;
 		if (*name_end == '\'' && !quotes)
@@ -30,28 +34,4 @@ char	*get_arg_end(char *line)
 	if (quotes % 2 || single_quotes % 2)
 		return (0);
 	return (name_end);
-}
-
-void	remove_arg_quotes(char *str)
-{
-	int		i;
-	int		j;
-	int		quotes;
-	int		single_quotes;
-
-	i = 0;
-	j = 0;
-	quotes = 0;
-	single_quotes = 0;
-	while (str[i])
-	{
-		if (str[i] == '"' && !single_quotes)
-			quotes = !quotes;
-		if (str[i] == '\'' && !quotes)
-			single_quotes = !single_quotes;
-		if ((str[i] != '"' || single_quotes) && (str[i] != '\'' || quotes))
-			str[j++] = str[i];
-		i++;
-	}
-	str[j] = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:31:21 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 12:15:42 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:49:17 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "types.h"
 
 char	*parse_next_command(char *line, t_cmd *cmd, t_shell *shell);
+int		is_cmd_end(int *next_type, char *str);
 void	parse_env_var(char *env, char **key, char **value);
 
 char	*parse_next_arg(char *arg_start, int *offset, t_shell *shell);
 char	*get_arg_end(char *line);
 
-char	*remove_arg_quotes(char *str);
 void	expand_arg(char **original, t_shell *shell);
 
 char	*get_exec_path(char *name, t_env *env);
