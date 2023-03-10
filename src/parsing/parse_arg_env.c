@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:35:30 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/18 08:14:42 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:06:22 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*parse_env_key(char *t)
 	int		i;
 
 	i = 0;
-	while (t[i] && t[i] != ' ' && t[i] != '\t' && t[i] != '$' && t[i] != '"')
+	while (t[i] && (ft_isalnum(t[i]) || t[i] == '_'))
 		i++;
 	key = malloc(i + 1);
 	ft_strlcpy(key, t, i + 1);
@@ -77,14 +77,18 @@ static char	*insert_last_status(char **original, char *t, int last_status)
 	return (t);
 }
 
-static void	replace_arg_env(char **original, t_shell *shell)
+void	expand_arg(char **original, t_shell *shell)
 {
 	char	*o;
+	int		double_quote;
+	int		single_quote;
 
+	double_quote = 0;
+	single_quote = 0;
 	o = *original;
-	while (*o && *(o + 1))
+	while (*o)
 	{
-		if (*o == '$')
+		if (*o == '$' && !single_quote)
 		{
 			if (*(o + 1) == '?')
 				o = insert_last_status(original, o, shell->last_status);
@@ -92,18 +96,15 @@ static void	replace_arg_env(char **original, t_shell *shell)
 				o = insert_env_var(original, o, shell->env);
 			o--;
 		}
+		else if ((*o == '"' && !single_quote) || (*o == '\'' && !double_quote))
+		{
+			if (*o == '"')
+				double_quote = !double_quote;
+			else if (*o == '\'')
+				single_quote = !single_quote;
+			ft_memmove(o, o + 1, ft_strlen(o + 1) + 1);
+			o--;
+		}
 		o++;
-	}
-}
-
-void	parse_arg_env(char **args, t_shell *shell)
-{
-	char	**arg;
-
-	arg = args;
-	while (*arg)
-	{
-		replace_arg_env(arg, shell);
-		arg++;
 	}
 }

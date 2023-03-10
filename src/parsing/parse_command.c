@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:27:19 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/18 06:10:08 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:32:25 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "parsing.h"
 
-static char	**parse_args_rec(char *arg_start, int i, int j)
+static char	**parse_all_args(char *arg_start, int i, int j, t_shell *shell)
 {
 	char	**args;
 	char	*arg;
@@ -27,10 +27,10 @@ static char	**parse_args_rec(char *arg_start, int i, int j)
 		args[i] = 0;
 		return (args);
 	}
-	arg = parse_next_arg(arg_start, &j);
+	arg = parse_next_arg(arg_start, &j, shell);
 	if (!arg)
 		return (0);
-	args = parse_args_rec(arg_start, i + 1, j);
+	args = parse_all_args(arg_start, i + 1, j, shell);
 	if (!args)
 	{
 		free(arg);
@@ -40,24 +40,23 @@ static char	**parse_args_rec(char *arg_start, int i, int j)
 	return (args);
 }
 
-int	parse_command(char *line, t_cmd *cmd, t_shell *shell)
+int	parse_next_command(char *line, t_cmd *cmd, t_shell *shell)
 {
 	int	i;
 
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	cmd->name = parse_next_arg(line, &i);
+	cmd->name = parse_next_arg(line, &i, shell);
 	if (!cmd->name)
 		return (1);
-	cmd->args = parse_args_rec(line + i, 0, 0);
+	cmd->args = parse_all_args(line + i, 0, 0, shell);
 	if (!cmd->args)
 	{
 		free(cmd->name);
 		cmd->name = 0;
 		return (1);
 	}
-	parse_arg_env(cmd->args, shell);
 	cmd->argc = ft_arraylen(cmd->args);
 	return (0);
 }

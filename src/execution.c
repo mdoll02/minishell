@@ -84,7 +84,7 @@ int	execute(t_shell *shell, char *line, int *status)
 
 	if (!line || !*line)
 		return (0);
-	if (parse_command(line, &cmd, shell))
+	if (parse_next_command(line, &cmd, shell))
 	{
 		*status = 1;
 		return (1);
