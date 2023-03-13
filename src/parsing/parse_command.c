@@ -79,15 +79,7 @@ char	*parse_next_command(char *line, t_cmd *cmd, t_shell *shell)
 		i++;
 	j = i;
 	cmd->name = parse_next_arg(line, &i, shell);
-	if (!cmd->name)
-		return (0);
 	cmd->args = parse_all_args(line, 0, &j, shell);
-	if (!cmd->args)
-	{
-		free(cmd->name);
-		cmd->name = 0;
-		return (0);
-	}
 	cmd->argc = ft_arraylen(cmd->args);
 	return (get_next_cmd_start(&cmd->next_type, line + j));
 }
