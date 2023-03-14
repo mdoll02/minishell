@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:31:21 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 18:17:33 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/14 08:08:08 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*get_arg_end(char *line);
 void	expand_arg(char **original, t_shell *shell);
 
 t_cmd	*get_commands(t_shell *shell, char *line);
+int		get_command_arr_len(t_cmd *cmd);
 void	free_commands(t_cmd *cmd);
 
 char	*get_exec_path(char *name, t_env *env);

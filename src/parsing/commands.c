@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:56:43 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 18:59:09 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/14 08:12:33 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ t_cmd	*get_commands(t_shell *shell, char *line)
 	while (line && *line)
 		line = parse_next_command(line, &cmd[i++], shell);
 	return (cmd);
+}
+
+int	get_command_arr_len(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i].name || cmd[i].next_type)
+		i++;
+	return (i);
 }
 
 void	free_commands(t_cmd *cmd)
