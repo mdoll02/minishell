@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 18:32:34 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/14 08:11:26 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ static int	check_builtin(t_shell *shell, t_cmd *cmd, int *status)
 	return (0);
 }
 
-static int	execute_command_child(t_cmd *cmd, t_env *env)
+int	execute_command_child(t_cmd *cmd, t_env *env)
 {
 	char	**envp;
 	int		result;
 	pid_t	pid;
 
-	result = -1;
 	envp = export_env(env);
 	pid = fork();
 	if (pid == 0)
 		execve(cmd->name, cmd->args, envp);
 	else
 		waitpid(pid, &result, 0);
+	WEXITSTATUS(result);
 	ft_free_split(envp);
 	return (result);
 }
