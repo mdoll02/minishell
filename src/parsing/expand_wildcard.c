@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:36:39 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/15 12:52:45 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:08:06 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,24 @@ static void	process_directory_entries(DIR *dir, char *pattern_start,
 	}
 }
 
-static void	update_original_string(char **original, const char *pattern_start,
-					char *t, char *expanded)
+static void update_original_string(char **original, const char *pattern_start,
+									char *t, char *expanded)
 {
-	size_t	prefix_len;
-	size_t	expanded_len;
-	size_t	new_len;
-	char	*new_str;
+	size_t prefix_len;
+	size_t expanded_len;
+	size_t new_len;
+	char *new_str;
+	size_t unmatched_len;
+	size_t suffix_len;
 
 	prefix_len = pattern_start - *original;
 	if (expanded)
 		expanded_len = ft_strlen(expanded);
 	else
 		expanded_len = 0;
-	new_len = prefix_len + expanded_len + ft_strlen(t + 1) + 1;
+	unmatched_len = t - pattern_start;
+	suffix_len = ft_strlen(t + 1 + unmatched_len);
+	new_len = prefix_len + expanded_len + suffix_len + 1;
 	new_str = malloc(new_len);
 	ft_memcpy(new_str, *original, prefix_len);
 	if (expanded)
@@ -106,7 +110,10 @@ static void	update_original_string(char **original, const char *pattern_start,
 		ft_memcpy(new_str + prefix_len, expanded, expanded_len);
 		free(expanded);
 	}
-	ft_strlcpy(new_str + prefix_len + expanded_len, t + 1, strlen(t + 1) + 1);
+	if (expanded_len > 0)
+		strcpy(new_str + prefix_len + expanded_len, t + 1 + unmatched_len);
+	else
+		strcpy(new_str + prefix_len + expanded_len, t + 1);
 	free(*original);
 	*original = new_str;
 }
