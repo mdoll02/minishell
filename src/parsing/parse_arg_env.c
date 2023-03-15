@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:35:30 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/15 12:56:55 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:56:26 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ void	expand_arg(char **original, t_shell *shell)
 			o--;
 		}
 		else if (*o == '*' && !single_quote && !double_quote)
-		{
-			expand_wildcard(original, o);
-			o--;
-		}
+			o = expand_wildcard(original, o);
 		else if ((*o == '"' && !single_quote) || (*o == '\'' && !double_quote))
 		{
 			if (*o == '"')
