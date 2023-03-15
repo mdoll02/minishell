@@ -27,6 +27,7 @@ SRC = main.c \
 	  parsing/get_arg_end.c \
 	  parsing/parse_arg_env.c \
 	  parsing/get_exec_path.c \
+	  parsing/expand_wildcard.c \
 	  parsing/commands.c \
 	  env/load_env.c \
 	  env/get_env.c \

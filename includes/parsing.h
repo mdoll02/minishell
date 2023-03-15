@@ -23,6 +23,7 @@ char	*parse_next_arg(char *arg_start, int *offset, t_shell *shell);
 char	*get_arg_end(char *line);
 
 void	expand_arg(char **original, t_shell *shell);
+void	expand_wildcard(char **original, char *t);
 
 t_cmd	*get_commands(t_shell *shell, char *line);
 int		get_command_arr_len(t_cmd *cmd);

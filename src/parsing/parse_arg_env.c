@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:35:30 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 12:06:22 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:56:55 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "types.h"
 #include "environment.h"
 #include "libft.h"
+#include "parsing.h"
 
 static char	*parse_env_key(char *t)
 {
@@ -94,6 +95,11 @@ void	expand_arg(char **original, t_shell *shell)
 				o = insert_last_status(original, o, shell->last_status);
 			else
 				o = insert_env_var(original, o, shell->env);
+			o--;
+		}
+		else if (*o == '*' && !single_quote && !double_quote)
+		{
+			expand_wildcard(original, o);
 			o--;
 		}
 		else if ((*o == '"' && !single_quote) || (*o == '\'' && !double_quote))
