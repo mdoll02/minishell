@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:12:17 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/15 12:20:04 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:10:33 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	handle_sigint(int sig)
 
 void	handle_sigquit(int sig)
 {
-	int	befunny;
+	int	be_funny;
 
-	befunny = 0;
-	((((((((void)(((int)((((long)(((char)befunny)))))) + sig))))))));
+	be_funny = 0;
+	((((((((void)(((int)((((long)(((char)be_funny)))))) + sig))))))));
 }

@@ -15,7 +15,6 @@
 #include "execution.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <fcntl.h>
 #include "pipeline.h"
 
 int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
@@ -25,7 +24,7 @@ int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
 		perror("pipe");
 		return (1);
 	}
-	if (fork() == 0)
+	if (!fork())
 	{
 		close(pl->pipe_fd[0]);
 		dup2(pl->input_fd, STDIN_FILENO);

@@ -20,7 +20,7 @@
 
 int	set_env_vars(t_shell *shell, const char *path)
 {
-	char	*oldpwd;
+	char	*old_pwd;
 	char	*pwd;
 
 	if (chdir(path) == -1)
@@ -32,13 +32,13 @@ int	set_env_vars(t_shell *shell, const char *path)
 		ft_putstr_fd("\n", 2);
 		return (1);
 	}
-	oldpwd = get_env(shell->secret_env, "PWD");
+	old_pwd = get_env(shell->secret_env, "PWD");
 	pwd = getcwd(0, 0);
-	set_env(shell, "OLDPWD", oldpwd);
+	set_env(shell, "OLDPWD", old_pwd);
 	set_env(shell, "PWD", pwd);
-	set_secret_env(shell, "OLDPWD", oldpwd);
+	set_secret_env(shell, "OLDPWD", old_pwd);
 	set_secret_env(shell, "PWD", pwd);
-	free(oldpwd);
+	free(old_pwd);
 	free(pwd);
 	return (0);
 }

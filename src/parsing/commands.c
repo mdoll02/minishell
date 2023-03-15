@@ -17,7 +17,7 @@
 
 // use a while loop to count the number of commands
 // in the while loop use get_arg_end to get the end of the command
-static int	get_commands_len(char *line)
+static int	get_commands_len(const char *line)
 {
 	int			len;
 	const char	*arg_end;
