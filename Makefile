@@ -37,6 +37,8 @@ SRC = main.c \
 	  utils/get_shell_dir.c \
 	  pipeline/pipeline.c \
 	  signals/signals.c \
+	  pipeline/pipes.c \
+	  pipeline/redirections.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 

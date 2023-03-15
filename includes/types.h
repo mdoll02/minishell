@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:14:00 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/10 12:37:21 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:59:59 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static const struct {
 	int		len;
 } s_c_type[] = {
 	{"|", CT_PIPE, 1},
-	{">", CT_REDIRECT_OUT, 1},
-	{"<", CT_REDIRECT_IN, 1},
 	{"<<", CT_REDIRECT_HEREDOC, 2},
 	{">>", CT_REDIRECT_OUTAPP, 2},
+	{">", CT_REDIRECT_OUT, 1},
+	{"<", CT_REDIRECT_IN, 1},
 	{"\0", CT_END, 1},
 	{0, 0, 0}
 };

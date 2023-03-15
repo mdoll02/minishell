@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:35:14 by mdoll             #+#    #+#             */
-/*   Updated: 2023/03/15 11:38:50 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:38:50 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include "pipeline.h"
 
 
 static void	restore_std_fds(int orig_stdin, int orig_stdout)
@@ -26,37 +27,18 @@ static void	restore_std_fds(int orig_stdin, int orig_stdout)
 	close(orig_stdout);
 }
 
-static int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status,
-								t_fd_pipeline *pl)
-{
-	if (pipe(pl->pipe_fd) == -1)
-	{
-		perror("pipe");
-		return (1);
-	}
-	if (fork() == 0)
-	{
-		close(pl->pipe_fd[0]);
-		dup2(pl->input_fd, STDIN_FILENO);
-		dup2(pl->pipe_fd[1], STDOUT_FILENO);
-		close(pl->input_fd);
-		close(pl->pipe_fd[1]);
-		*status = execute_internal(shell, cmd, status);
-		exit(*status);
-	}
-	else
-	{
-		close(pl->pipe_fd[1]);
-		pl->input_fd = pl->pipe_fd[0];
-	}
-	return (pl->input_fd);
-}
-
 static int	handle_final_case(t_shell *shell, t_cmd *cmd,
-								int *status, int input_fd)
+								int *status, t_fd_pipeline *pl)
 {
-	dup2(input_fd, STDIN_FILENO);
-	close(input_fd);
+	if (cmd->next_type == CT_REDIRECT_OUT || \
+			cmd->next_type == CT_REDIRECT_OUTAPP)
+		pl->output_fd = redirect_output(cmd);
+	if (pl->output_fd == -1)
+		return (pl->output_fd);
+	dup2(pl->output_fd, STDOUT_FILENO);
+	dup2(pl->input_fd, STDIN_FILENO);
+	close(pl->input_fd);
+	close(pl->output_fd);
 	*status = execute_internal(shell, cmd, status);
 	return (*status);
 }
@@ -72,26 +54,11 @@ static int	exec_pipeline_command(t_shell *shell, t_cmd **cmd, int *status,
 	}
 	else
 	{
-		*status = handle_final_case(shell, *cmd, status, pl->input_fd);
+		*status = handle_final_case(shell, *cmd, status, pl);
 		return (0);
 	}
 	(*cmd)++;
 	return (-1);
-}
-
-static int	redirect_input(t_cmd **cmd)
-{
-	int	open_ret;
-
-	(*cmd)++;
-	open_ret = open((*cmd)->name, O_RDONLY);
-	if (open_ret == -1)
-	{
-		perror((*cmd)->name);
-		return (open_ret);
-	}
-	(*cmd)++;
-	return (open_ret);
 }
 
 int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
@@ -114,6 +81,7 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 	}
 	else
 		pl.input_fd = orig_stdin;
+	pl.output_fd = orig_stdout;
 	while (len--)
 	{
 		if (exec_pipeline_command(shell, &cmd, status,
