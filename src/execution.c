@@ -6,14 +6,14 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:08:07 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/14 08:11:26 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/14 10:38:38 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include "../includes/execution.h"
+#include "execution.h"
 #include "libft.h"
 #include "parsing.h"
 #include "environment.h"
@@ -48,7 +48,7 @@ int	execute_command_child(t_cmd *cmd, t_env *env)
 	envp = export_env(env);
 	pid = fork();
 	if (pid == 0)
-		execve(cmd->name, cmd->args, envp);
+		result = execve(cmd->name, cmd->args, envp);
 	else
 		waitpid(pid, &result, 0);
 	WEXITSTATUS(result);
@@ -56,7 +56,7 @@ int	execute_command_child(t_cmd *cmd, t_env *env)
 	return (result);
 }
 
-static int	execute_internal(t_shell *shell, t_cmd *cmd, int *status)
+int	execute_internal(t_shell *shell, t_cmd *cmd, int *status)
 {
 	char	*exec_path;
 
@@ -80,7 +80,6 @@ int	execute(t_shell *shell, char *line, int *status)
 {
 	t_cmd	*cmd;
 	int		result;
-	int		i;
 
 	if (!line || !*line)
 		return (0);
@@ -90,9 +89,7 @@ int	execute(t_shell *shell, char *line, int *status)
 		*status = 1;
 		return (1);
 	}
-	i = 0;
-	while (cmd[i].name)
-		result = execute_internal(shell, &cmd[i++], status);
+	result = exec_pipeline(shell, cmd, get_command_arr_len(cmd), status);
 	free_commands(cmd);
 	return (result);
 }

@@ -15,10 +15,12 @@
 
 # include "types.h"
 
+typedef int		(*t_builtin_func)(t_shell *shell, const t_cmd *cmd);
+
 typedef struct s_builtin
 {
 	char	*name;
-	int		(*func)(t_shell *shell, const t_cmd *cmd);
+	t_builtin_func func;
 }	t_builtin;
 
 int	echo_builtin(t_shell *shell, const t_cmd *cmd);
