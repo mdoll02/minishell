@@ -35,7 +35,8 @@ SRC = main.c \
 	  env/remove_env.c \
 	  env/export_env.c \
 	  utils/get_shell_dir.c \
-	  pipeline/pipeline.c
+	  pipeline/pipeline.c \
+	  signals/signals.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
@@ -52,6 +53,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/env
 	@mkdir -p $(OBJ_DIR)/utils
 	@mkdir -p $(OBJ_DIR)/pipeline
+	@mkdir -p $(OBJ_DIR)/signals
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 	@echo "Compiling $<"
 

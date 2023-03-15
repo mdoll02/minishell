@@ -6,12 +6,13 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 11:52:58 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/15 12:04:01 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:26:49 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "signalhandlers.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "execution.h"
@@ -20,21 +21,27 @@
 #include "environment.h"
 #include "utils.h"
 
+static void	handle_first_run(t_shell *shell)
+{
+	if (shell->first_run)
+	{
+		printf("Welcome to minishell v0.7 by mdoll and kschmidt!\n");
+		shell->first_run = 0;
+		return ;
+	}
+	if (shell->last_status)
+		printf("KO ");
+	else
+		printf("OK ");
+}
+
 static void	next_run(t_shell *shell)
 {
 	char		*line;
 	const char	*shell_dir;
 	char		prompt[1024];
 
-	if (!shell->first_run)
-	{
-		if (shell->last_status)
-			printf("KO ");
-		else
-			printf("OK ");
-	}
-	else
-		shell->first_run = 0;
+	handle_first_run(shell);
 	shell_dir = get_shell_dir(shell);
 	strcpy(prompt, "minishell [");
 	strcat(prompt, shell_dir);
@@ -42,7 +49,10 @@ static void	next_run(t_shell *shell)
 	free((char *)shell_dir);
 	line = readline(prompt);
 	if (!line)
+	{
+		shell->exit = 1;
 		return ;
+	}
 	if (*line)
 		add_history(line);
 	execute(shell, line, &shell->last_status);
@@ -59,6 +69,7 @@ static int	minishell(char **environ)
 	shell->first_run = 1;
 	load_env(shell, environ);
 	using_history();
+	register_signals();
 	while (!shell->exit)
 		next_run(shell);
 	rl_clear_history();
