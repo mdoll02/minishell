@@ -15,11 +15,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup Make and install dependencies
-      run: |
-        if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-          brew install readline
-        fi
     - name: Build
       run: make all
     - name: Rename minishell
