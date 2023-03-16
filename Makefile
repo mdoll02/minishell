@@ -41,6 +41,7 @@ SRC = main.c \
 	  signals/signals.c \
 	  pipeline/pipes.c \
 	  pipeline/redirections.c \
+	  pipeline/heredoc.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
