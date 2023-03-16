@@ -25,5 +25,6 @@ typedef struct s_fd_pipeline
 int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl);
 int	redirect_input(t_cmd **cmd);
 int	redirect_output(t_cmd *cmd);
+int	here_doc(char *limiter);
 
 #endif
