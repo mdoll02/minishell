@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 11:52:58 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/15 12:26:49 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:44:54 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	minishell(char **environ)
 	register_signals();
 	while (!shell->exit)
 		next_run(shell);
-	rl_clear_history();
+	clear_history();
 	clear_env(&shell->env);
 	return (shell->last_status);
 }
