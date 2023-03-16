@@ -6,8 +6,15 @@ CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = dependencies/libft/libft.a
 LIBFT_DIR = dependencies/libft
 
-DEPENDENCIES = $(LIBFT) -lreadline
+DEPENDENCIES = $(LIBFT)
 INCLUDES = -I dependencies/libft -I includes
+
+ifeq ($(shell uname), Darwin)
+	DEPENDENCIES += -L/usr/local/opt/readline/lib
+	INCLUDES += -I/usr/local/opt/readline/include
+else
+	DEPENDENCIES += -lreadline
+endif
 
 SRC_DIR = src
 OBJ_DIR = obj
