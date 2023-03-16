@@ -25,9 +25,8 @@ void	register_signals(void)
 void	handle_sigint(int sig)
 {
 	(void)sig;
+	rl_replace_line("", 0);
 	write(1, "\n", 1);
-	rl_delete_text(0, rl_end);
-	rl_point = 0;
 	rl_forced_update_display();
 }
 
