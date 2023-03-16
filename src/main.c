@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 11:52:58 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/16 13:44:54 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/16 14:19:51 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,37 @@
 #include "environment.h"
 #include "utils.h"
 
-static void	handle_first_run(t_shell *shell)
+static char	*show_prompt(t_shell *shell)
 {
+	char		prompt[1024];
+	const char	*shell_dir;
+
+	*prompt = 0;
 	if (shell->first_run)
 	{
 		printf("Welcome to minishell v0.7 by mdoll and kschmidt!\n");
 		shell->first_run = 0;
-		return ;
 	}
-	if (shell->last_status)
-		printf("KO ");
 	else
-		printf("OK ");
+	{
+		if (shell->last_status)
+			ft_strlcat(prompt, "KO ", 1024);
+		else
+			ft_strlcat(prompt, "OK ", 1024);
+	}
+	shell_dir = get_shell_dir(shell);
+	ft_strlcat(prompt, "minishell [", 1024);
+	ft_strlcat(prompt, shell_dir, 1024);
+	ft_strlcat(prompt, "] $ ", 1024);
+	free((char *)shell_dir);
+	return (readline(prompt));
 }
 
 static void	next_run(t_shell *shell)
 {
 	char		*line;
-	const char	*shell_dir;
-	char		prompt[1024];
 
-	handle_first_run(shell);
-	shell_dir = get_shell_dir(shell);
-	ft_strlcpy(prompt, "minishell [", 1024);
-	ft_strlcat(prompt, shell_dir, 1024);
-	ft_strlcat(prompt, "] $ ", 1024);
-	free((char *)shell_dir);
-	line = readline(prompt);
+	line = show_prompt(shell);
 	if (!line)
 	{
 		shell->exit = 1;
