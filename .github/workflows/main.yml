@@ -1,0 +1,43 @@
+name: Minishell Build and Publish
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build_and_publish:
+    name: Publish binaries
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Make and install dependencies
+      run: |
+        if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+          brew install readline
+        fi
+    - name: Build
+      run: make all
+    - name: Rename minishell
+      run: |
+        if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+          mv minishell minishell-linux
+          asset_name="minishell-linux"
+        else
+          mv minishell minishell-macos
+          asset_name="minishell-macos"
+        fi
+        echo "ASSET_NAME=$asset_name" >> $GITHUB_ENV
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.RELEASE_TOKEN }}
+        file: ${{ env.ASSET_NAME }}
+        asset_name: ${{ env.ASSET_NAME }}
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "Latest minishell master release"
