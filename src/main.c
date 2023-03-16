@@ -43,9 +43,9 @@ static void	next_run(t_shell *shell)
 
 	handle_first_run(shell);
 	shell_dir = get_shell_dir(shell);
-	strcpy(prompt, "minishell [");
-	strcat(prompt, shell_dir);
-	strcat(prompt, "] $ ");
+	ft_strlcpy(prompt, "minishell [", 1024);
+	ft_strlcat(prompt, shell_dir, 1024);
+	ft_strlcat(prompt, "] $ ", 1024);
 	free((char *)shell_dir);
 	line = readline(prompt);
 	if (!line)
