@@ -79,6 +79,11 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 	else
 		pl.input_fd = orig_stdin;
 	pl.output_fd = orig_stdout;
+	if (cmd->next_type == CT_REDIRECT_HEREDOC)
+	{
+		cmd++;
+		here_doc(cmd->name);
+	}
 	while (len--)
 	{
 		if (exec_pipeline_command(shell, &cmd, status,

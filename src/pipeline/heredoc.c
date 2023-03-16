@@ -16,6 +16,7 @@
 #include "pipeline.h"
 #include <stdbool.h>
 #include <fcntl.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include "libft.h"
 
@@ -55,7 +56,8 @@ int	here_doc(char *limiter)
 	line = NULL;
 	while (limiter_found(line, limiter) == false)
 	{
-		readline(line);
+		line = readline("tell me> ");
+		write(doc.fd, line, strlen(line));
 	}
 	close(doc.fd);
 	unlink(doc.name);
