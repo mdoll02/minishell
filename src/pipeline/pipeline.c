@@ -66,7 +66,19 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 
 	orig_stdin = dup(STDIN_FILENO);
 	orig_stdout = dup(STDOUT_FILENO);
-	if (cmd->next_type == CT_REDIRECT_IN)
+	if (check_for_heredoc(cmd, len) == true)
+	{
+		while (cmd->next_type != CT_REDIRECT_HEREDOC)
+		{
+			cmd++;
+			len--;
+		}
+		cmd++;
+		pl.input_fd = here_doc(cmd->name, cmd);
+		cmd++;
+		len -= 2;
+	}
+	else if (cmd->next_type == CT_REDIRECT_IN)
 	{
 		pl.input_fd = redirect_input(&cmd);
 		if (pl.input_fd == -1)
@@ -79,11 +91,6 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 	else
 		pl.input_fd = orig_stdin;
 	pl.output_fd = orig_stdout;
-	if (cmd->next_type == CT_REDIRECT_HEREDOC)
-	{
-		cmd++;
-		here_doc(cmd->name);
-	}
 	while (len--)
 	{
 		if (exec_pipeline_command(shell, &cmd, status,
