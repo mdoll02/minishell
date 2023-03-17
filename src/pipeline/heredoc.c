@@ -20,12 +20,6 @@
 #include <readline/readline.h>
 #include "libft.h"
 
-typedef struct s_heredoc
-{
-	char	name[5];
-	int		fd;
-}	t_heredoc;
-
 static bool	limiter_found(char *line, char *limiter)
 {
 	if (!line)

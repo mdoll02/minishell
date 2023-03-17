@@ -22,6 +22,12 @@ typedef struct s_fd_pipeline
 	int	pipe_fd[2];
 }	t_fd_pipeline;
 
+typedef struct s_heredoc
+{
+	char	name[5];
+	int		fd;
+}	t_heredoc;
+
 int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl);
 int	redirect_input(t_cmd **cmd);
 int	redirect_output(t_cmd *cmd);
