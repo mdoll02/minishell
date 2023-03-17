@@ -51,14 +51,14 @@ static int	create_heredoc_file(t_heredoc *doc)
 	return (0);
 }
 
-int	here_doc(char *limiter)
+int	here_doc(char *limiter, t_cmd *cmd)
 {
 	t_heredoc	doc;
 	char		*line;
 
 	if (create_heredoc_file(&doc) < 0)
 		return (1);
-	line = NULL;
+	(void)cmd;
 	while (1)
 	{
 		line = readline("🤨 > ");
