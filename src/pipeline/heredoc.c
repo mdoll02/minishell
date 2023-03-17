@@ -48,10 +48,13 @@ int	here_doc(char *limiter)
 	if (create_heredoc_file(&doc) < 0)
 		return (1);
 	line = NULL;
-	while (limiter_found(line, limiter) == false)
+	while (1)
 	{
-		line = readline("tell me> ");
-		write(doc.fd, line, strlen(line));
+		line = readline("🤨 > ");
+		if (limiter_found(line, limiter) == true)
+			break ;
+		write(doc.fd, line, ft_strlen(line));
+		write(doc.fd, "\n", 1);
 	}
 	close(doc.fd);
 	unlink(doc.name);
