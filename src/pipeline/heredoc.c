@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <readline/readline.h>
+#include <stdlib.h>
 #include "libft.h"
 
 bool	check_for_heredoc(t_cmd *cmd, int len)
@@ -66,7 +67,6 @@ int	here_doc(char *limiter)
 		write(doc.fd, line, ft_strlen(line));
 		write(doc.fd, "\n", 1);
 	}
-	close(doc.fd);
-	unlink(doc.name);
-	return (0);
+	free(line);
+	return (doc.fd);
 }
