@@ -80,5 +80,9 @@ int	here_doc(char *limiter, t_cmd *cmd)
 		write(doc.fd, "\n", 1);
 	}
 	free(line);
+	close (doc.fd);
+	doc.fd = open(doc.name, O_RDONLY);
+	if (doc.fd < 1)
+		perror ("open");
 	return (doc.fd);
 }
