@@ -82,7 +82,14 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 		cmd++;
 		pl.input_fd = here_doc(cmd->name, cmd);
 		cmd--;
-		len--;
+		if (cmd->name == NULL)
+		{
+			cmd++;
+			cmd++;
+			len -= 2;
+		}
+		else
+			len--;
 	}
 	else if (cmd->next_type == CT_REDIRECT_IN)
 	{
