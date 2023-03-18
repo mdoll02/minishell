@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:48:55 by mdoll             #+#    #+#             */
-/*   Updated: 2023/03/16 11:48:55 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/03/18 16:37:58 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static bool	limiter_found(char *line, char *limiter)
 	return (false);
 }
 
-// TODO need to fix name generator
-static int	create_heredoc_file(t_heredoc *doc) {
-	int i;
+static int	create_heredoc_file(t_heredoc *doc)
+{
+	int	i;
 
 	i = 0;
 	doc->fd = open("/dev/random", O_RDONLY);
@@ -50,13 +50,12 @@ static int	create_heredoc_file(t_heredoc *doc) {
 		return (1);
 	read(doc->fd, doc->name, 5);
 	close(doc->fd);
-	while (i <= 5)
+	while (i < 5)
 	{
-		if (doc->name[i] < 0)
-			doc->name[i] *= -1;
-		doc->name[i] = (doc->name[i] % 94) + 33;
+		doc->name[i] = (char)(doc->name[i] % 26 + 'a');
 		i++;
 	}
+	doc->name[i] = 0;
 	doc->fd = open(doc->name, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (doc->fd < 1)
 		perror ("open");
@@ -68,9 +67,9 @@ int	here_doc(char *limiter, t_cmd *cmd)
 	t_heredoc	doc;
 	char		*line;
 
-	if (create_heredoc_file(&doc) < 0)
-		return (1);
 	(void)cmd;
+	if (create_heredoc_file(&doc))
+		return (1);
 	while (1)
 	{
 		line = readline("🤨 > ");
