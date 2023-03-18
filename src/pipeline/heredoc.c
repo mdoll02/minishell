@@ -40,14 +40,26 @@ static bool	limiter_found(char *line, char *limiter)
 	return (false);
 }
 
-static int	create_heredoc_file(t_heredoc *doc)
-{
+// TODO need to fix name generator
+static int	create_heredoc_file(t_heredoc *doc) {
+	int i;
+
+	i = 0;
 	doc->fd = open("/dev/random", O_RDONLY);
 	if (doc->fd < 0)
 		return (1);
 	read(doc->fd, doc->name, 5);
 	close(doc->fd);
+	while (i <= 5)
+	{
+		if (doc->name[i] < 0)
+			doc->name[i] *= -1;
+		doc->name[i] = (doc->name[i] % 94) + 33;
+		i++;
+	}
 	doc->fd = open(doc->name, O_CREAT | O_EXCL | O_RDWR, 0644);
+	if (doc->fd < 1)
+		perror ("open");
 	return (0);
 }
 
