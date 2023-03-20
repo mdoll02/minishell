@@ -14,6 +14,7 @@
 # define PIPELINE_H
 
 # include <stdbool.h>
+# include "types.h"
 
 typedef struct s_fd_pipeline
 {
