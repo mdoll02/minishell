@@ -56,6 +56,9 @@ static int	create_heredoc_file(t_heredoc *doc)
 		i++;
 	}
 	doc->name[i] = 0;
+	doc->name = ft_strjoin(doc->name, ".heredoc");
+	if (!doc->name)
+		return (1);
 	doc->fd = open(doc->name, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (doc->fd < 1)
 		perror ("open");
@@ -68,7 +71,10 @@ int	here_doc(char *limiter, t_cmd *cmd)
 	char		*line;
 
 	(void)cmd;
-	if (create_heredoc_file(&doc))
+	doc->name = malloc(sizeof(char) * 6);
+	if (!doc->name)
+		return (1);
+	if (create_heredoc_file(doc) != 0)
 		return (1);
 	while (1)
 	{
