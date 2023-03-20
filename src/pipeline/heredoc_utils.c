@@ -38,6 +38,11 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 		clear_heredoc(doc);
 		return (1);
 	}
+	if ((*cmd)->argc > 1)
+	{
+		(*cmd)->args++;
+		(*cmd)->name = (*cmd)->args[0];
+	}
 	(*cmd)--;
 	if ((*cmd)->name == NULL)
 	{
