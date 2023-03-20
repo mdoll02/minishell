@@ -76,23 +76,9 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 	doc.name = NULL;
 	if (check_for_heredoc(cmd, len) == true)
 	{
-		while (cmd->next_type != CT_REDIRECT_HEREDOC)
-		{
-			cmd++;
-			len--;
-		}
-		cmd++;
-		*status = here_doc(&doc, cmd->name, cmd);
-		cmd--;
-		if (cmd->name == NULL)
-		{
-			cmd++;
-			cmd++;
-			len -= 2;
-		}
-		else
-			len--;
-		pl.input_fd = doc.fd;
+		*status = init_heredoc(&cmd, &doc, &pl, &len);
+		if (*status != 0)
+			return (*status);
 	}
 	else if (cmd->next_type == CT_REDIRECT_IN)
 	{

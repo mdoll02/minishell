@@ -23,3 +23,30 @@ void	clear_heredoc(t_heredoc *doc)
 		free(doc->name);
 	}
 }
+
+int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
+					int *len)
+{
+	while ((*cmd)->next_type != CT_REDIRECT_HEREDOC)
+	{
+		(*cmd)++;
+		len--;
+	}
+	(*cmd)++;
+	if (here_doc(doc, (*cmd)->name, *cmd) != 0)
+	{
+		clear_heredoc(doc);
+		return (1);
+	}
+	(*cmd)--;
+	if ((*cmd)->name == NULL)
+	{
+		(*cmd)++;
+		(*cmd)++;
+		len -= 2;
+	}
+	else
+		len--;
+	pl->input_fd = doc->fd;
+	return (0);
+}

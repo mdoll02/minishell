@@ -36,5 +36,7 @@ int			redirect_output(t_cmd *cmd);
 int			here_doc(t_heredoc *doc, char *limiter, t_cmd *cmd);
 bool		check_for_heredoc(t_cmd *cmd, int len);
 void		clear_heredoc(t_heredoc *doc);
+int			init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
+								int *len);
 
 #endif
