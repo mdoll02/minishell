@@ -6,13 +6,12 @@
 /*   By: mdoll <mdoll@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:48:55 by mdoll             #+#    #+#             */
-/*   Updated: 2023/03/18 16:37:58 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:37:58 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include <unistd.h>
-#include "execution.h"
 #include "pipeline.h"
 #include <fcntl.h>
 #include <stdio.h>
