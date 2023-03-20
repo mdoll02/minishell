@@ -65,9 +65,8 @@ static int	create_heredoc_file(t_heredoc *doc)
 	return (0);
 }
 
-int	here_doc(char *limiter, t_cmd *cmd)
+int	here_doc(t_heredoc *doc, char *limiter, t_cmd *cmd)
 {
-	t_heredoc	doc;
 	char		*line;
 
 	(void)cmd;
@@ -81,13 +80,13 @@ int	here_doc(char *limiter, t_cmd *cmd)
 		line = readline("🤨 > ");
 		if (limiter_found(line, limiter) == true)
 			break ;
-		write(doc.fd, line, ft_strlen(line));
-		write(doc.fd, "\n", 1);
+		write(doc->fd, line, ft_strlen(line));
+		write(doc->fd, "\n", 1);
 	}
 	free(line);
-	close (doc.fd);
-	doc.fd = open(doc.name, O_RDONLY);
-	if (doc.fd < 1)
+	close (doc->fd);
+	doc->fd = open(doc->name, O_RDONLY);
+	if (doc->fd < 1)
 		perror ("open");
-	return (doc.fd);
+	return (0);
 }
