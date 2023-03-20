@@ -114,5 +114,6 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 			break ;
 	}
 	restore_std_fds(orig_stdin, orig_stdout);
+	clear_heredoc(&doc);
 	return (*status);
 }

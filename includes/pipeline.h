@@ -25,15 +25,16 @@ typedef struct s_fd_pipeline
 
 typedef struct s_heredoc
 {
-	char	name[6];
+	char	*name;
 	int		fd;
 }	t_heredoc;
 
-int		handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, \
-							t_fd_pipeline *pl);
-int		redirect_input(t_cmd **cmd);
-int		redirect_output(t_cmd *cmd);
-int		here_doc(char *limiter, t_cmd *cmd);
-bool	check_for_heredoc(t_cmd *cmd, int len);
+int			handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, \
+								t_fd_pipeline *pl);
+int			redirect_input(t_cmd **cmd);
+int			redirect_output(t_cmd *cmd);
+int			here_doc(t_heredoc *doc, char *limiter, t_cmd *cmd);
+bool		check_for_heredoc(t_cmd *cmd, int len);
+void		clear_heredoc(t_heredoc *doc);
 
 #endif
