@@ -64,6 +64,26 @@ static int	exec_pipeline_command(t_shell *shell, t_cmd **cmd, int *status,
 	return (-1);
 }
 
+static int	check_input_redirection(t_cmd	**cmd, t_heredoc	*doc, \
+							t_fd_pipeline	*pl, int *len)
+{
+	if (check_for_heredoc(*cmd, *len) == true)
+	{
+		if (init_heredoc(&*cmd, doc, pl, len) != 0)
+			return (1);
+	}
+	else if ((*cmd)->next_type == CT_REDIRECT_IN)
+	{
+		pl->input_fd = redirect_input(&*cmd);
+		if (pl->input_fd == -1)
+			return (1);
+		len -= 2;
+	}
+	else
+		pl->input_fd = STDIN_FILENO;
+	return (0);
+}
+
 int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 {
 	int				orig_stdin;
@@ -74,24 +94,9 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 	orig_stdin = dup(STDIN_FILENO);
 	orig_stdout = dup(STDOUT_FILENO);
 	doc.name = NULL;
-	if (check_for_heredoc(cmd, len) == true)
-	{
-		*status = init_heredoc(&cmd, &doc, &pl, &len);
-		if (*status != 0)
-			return (*status);
-	}
-	else if (cmd->next_type == CT_REDIRECT_IN)
-	{
-		pl.input_fd = redirect_input(&cmd);
-		if (pl.input_fd == -1)
-		{
-			*status = 1;
-			return (*status);
-		}
-		len -= 2;
-	}
-	else
-		pl.input_fd = orig_stdin;
+	*status = check_input_redirection(&cmd, &doc, &pl, &len);
+	if (*status == 1)
+		return (*status);
 	pl.output_fd = orig_stdout;
 	while (len--)
 	{
