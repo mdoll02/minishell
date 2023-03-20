@@ -47,12 +47,12 @@ static int	exec_pipeline_command(t_shell *shell, t_cmd **cmd, int *status,
 	{
 		pl->input_fd = handle_pipe_case(shell, *cmd, status, pl);
 		if (pl->input_fd == 1)
-			return (1);
+			return (*status);
 	}
 	else
 	{
 		*status = handle_final_case(shell, *cmd, status, pl);
-		return (0);
+		return (*status);
 	}
 	if ((*cmd)->next_type == CT_REDIRECT_HEREDOC)
 	{
