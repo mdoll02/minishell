@@ -18,6 +18,7 @@ void	clear_heredoc(t_heredoc *doc)
 {
 	if (doc->name != NULL)
 	{
+		close(doc->fd);
 		unlink(doc->name);
 		free(doc->name);
 	}
