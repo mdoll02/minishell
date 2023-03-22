@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "libft.h"
 
-static char	*find_executable(char *name, const char *path)
+static char	*find_executable_in_path(char *name, const char *path)
 {
 	const char	*p;
 	const char	*end;
@@ -46,8 +46,15 @@ char	*get_exec_path(char *name, t_env *env)
 {
 	const char	*path;
 
+	if (name[0] == '/' || ft_strchr(name, '/') != NULL)
+	{
+		if (access(name, X_OK) == 0)
+			return (ft_strdup(name));
+		else
+			return (0);
+	}
 	path = get_env_nc(env, "PATH");
 	if (!path)
 		return (0);
-	return (find_executable(name, path));
+	return (find_executable_in_path(name, path));
 }
