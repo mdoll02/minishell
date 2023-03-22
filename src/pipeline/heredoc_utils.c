@@ -43,23 +43,22 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 		(*cmd)++;
 		(*len)--;
 	}
-	(*cmd)++;
-	if (here_doc(doc, (*cmd)->name, *cmd) != 0)
+	if (here_doc(doc, (*cmd + 1)->name, *cmd + 1) != 0)
 	{
 		clear_heredoc(doc);
 		return (1);
 	}
-	if ((*cmd)->argc > 1)
-	{
-		(*cmd)->args++;
-		(*cmd)->name = (*cmd)->args[0];
-		(*cmd)++;
-	}
-	(*cmd)--;
 	if ((*cmd)->name == NULL)
 	{
 		(*cmd)++;
-		(*cmd)++;
+		if ((*cmd)->argc > 1)
+		{
+			(*cmd)->args++;
+			(*cmd)->name = (*cmd)->args[0];
+			(*len)++;
+		}
+		else
+			(*cmd)++;
 		(*len) -= 2;
 	}
 	else
