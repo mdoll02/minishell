@@ -43,7 +43,8 @@ static int	handle_final_case(t_shell *shell, t_cmd *cmd,
 static int	exec_pipeline_command(t_shell *shell, t_cmd **cmd, int *status,
 					t_fd_pipeline *pl)
 {
-	if ((*cmd)->next_type == CT_PIPE)
+	if ((*cmd)->next_type == CT_PIPE || ((*cmd)->next_type == \
+				CT_REDIRECT_HEREDOC && (*cmd + 1)->next_type == CT_PIPE))
 	{
 		pl->input_fd = handle_pipe_case(shell, *cmd, status, pl);
 		if (pl->input_fd == 1)
