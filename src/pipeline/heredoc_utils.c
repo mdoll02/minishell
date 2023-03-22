@@ -14,6 +14,17 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+bool	check_for_heredoc(t_cmd *cmd, int len)
+{
+	while (len--)
+	{
+		if (cmd->next_type == CT_REDIRECT_HEREDOC)
+			return (true);
+		cmd++;
+	}
+	return (false);
+}
+
 void	clear_heredoc(t_heredoc *doc)
 {
 	if (doc->name != NULL)

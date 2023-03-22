@@ -19,17 +19,6 @@
 #include <stdlib.h>
 #include "libft.h"
 
-bool	check_for_heredoc(t_cmd *cmd, int len)
-{
-	while (len--)
-	{
-		if (cmd->next_type == CT_REDIRECT_HEREDOC)
-			return (true);
-		cmd++;
-	}
-	return (false);
-}
-
 static bool	limiter_found(char *line, char *limiter)
 {
 	if (!line)
