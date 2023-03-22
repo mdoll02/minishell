@@ -26,7 +26,13 @@ int	redirect_input(t_cmd **cmd)
 		perror((*cmd)->name);
 		return (open_ret);
 	}
-	(*cmd)++;
+	if ((*cmd)->argc > 1)
+	{
+		(*cmd)->args++;
+		(*cmd)->name = (*cmd)->args[0];
+	}
+	else
+		(*cmd)++;
 	return (open_ret);
 }
 
