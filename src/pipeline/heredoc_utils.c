@@ -41,7 +41,7 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 	while ((*cmd)->next_type != CT_REDIRECT_HEREDOC)
 	{
 		(*cmd)++;
-		len--;
+		(*len)--;
 	}
 	(*cmd)++;
 	if (here_doc(doc, (*cmd)->name, *cmd) != 0)
@@ -53,16 +53,17 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 	{
 		(*cmd)->args++;
 		(*cmd)->name = (*cmd)->args[0];
+		(*cmd)++;
 	}
 	(*cmd)--;
 	if ((*cmd)->name == NULL)
 	{
 		(*cmd)++;
 		(*cmd)++;
-		len -= 2;
+		(*len) -= 2;
 	}
 	else
-		len--;
+		(*len)--;
 	pl->input_fd = doc->fd;
 	return (0);
 }
