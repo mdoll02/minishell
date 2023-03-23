@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "environment.h"
 #include "libft.h"
 
@@ -39,19 +40,20 @@ static char	*find_executable_in_path(char *name, const char *path)
 		}
 		p++;
 	}
-	return ((char *)0);
+	return (0);
 }
 
 char	*get_exec_path(char *name, t_env *env)
 {
 	const char	*path;
+	struct stat	filestat;
 
-	if (name[0] == '/' || ft_strchr(name, '/') != NULL)
+	if (ft_strchr(name, '/') != 0 || name[0] == '.')
 	{
-		if (access(name, X_OK) == 0)
+		if (access(name, X_OK) == 0
+			&& stat(name, &filestat) == 0 && !S_ISDIR(filestat.st_mode))
 			return (ft_strdup(name));
-		else
-			return (0);
+		return (0);
 	}
 	path = get_env_nc(env, "PATH");
 	if (!path)
