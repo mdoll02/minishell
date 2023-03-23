@@ -93,8 +93,10 @@ void	expand_arg(char **original, t_shell *shell)
 		{
 			if (*(o + 1) == '?')
 				o = insert_last_status(original, o, shell->last_status);
-			else
+			else if (ft_isalnum(*(o + 1)) || *(o + 1) == '_')
 				o = insert_env_var(original, o, shell->env);
+			else
+				o++;
 			o--;
 		}
 		else if (*o == '*' && !single_quote && !double_quote)
