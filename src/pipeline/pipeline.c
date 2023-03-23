@@ -36,7 +36,7 @@ static int	handle_final_case(t_shell *shell, t_cmd *cmd,
 	dup2(pl->input_fd, STDIN_FILENO);
 	close(pl->input_fd);
 	close(pl->output_fd);
-	*status = execute_internal(shell, cmd, status);
+	execute_internal(shell, cmd, status);
 	return (*status);
 }
 
