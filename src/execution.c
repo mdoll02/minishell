@@ -51,7 +51,7 @@ int	execute_command_child(t_cmd *cmd, t_env *env)
 		result = execve(cmd->name, cmd->args, envp);
 	else
 		waitpid(pid, &result, 0);
-	WEXITSTATUS(result);
+	result = WEXITSTATUS(result);
 	ft_free_split(envp);
 	return (result);
 }
@@ -72,7 +72,7 @@ int	execute_internal(t_shell *shell, t_cmd *cmd, int *status)
 	}
 	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putendl_fd(cmd->name, 2);
-	*status = 1;
+	*status = 127;
 	return (1);
 }
 
