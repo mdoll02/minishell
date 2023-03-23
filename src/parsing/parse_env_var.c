@@ -12,8 +12,14 @@
 
 #include "libft.h"
 
-void	parse_env_var(char *env, char **key, char **value)
+int	parse_env_var(char *env, char **key, char **value)
 {
-	*key = ft_strndup(env, ft_strchr(env, '=') - env);
+	char	*end;
+
+	end = ft_strchr(env, '=');
+	if (!end)
+		return (1);
+	*key = ft_strndup(env, end - env);
 	*value = ft_strchr(env, '=') + 1;
+	return (0);
 }

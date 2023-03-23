@@ -22,7 +22,8 @@ int	export_builtin(t_shell *shell, const t_cmd *cmd)
 
 	if (!cmd->args[0])
 		return (env_builtin(shell, cmd));
-	parse_env_var(cmd->args[0], &name, &value);
+	if (parse_env_var(cmd->args[0], &name, &value))
+		return (0);
 	set_env(shell, name, value);
 	free(name);
 	return (0);
