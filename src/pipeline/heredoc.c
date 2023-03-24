@@ -44,6 +44,9 @@ static int	create_heredoc_file(t_heredoc *doc)
 		i++;
 	}
 	doc->name[i] = 0;
+	doc->name = ft_strjoin("/tmp/", doc->name);
+	if (!doc->name)
+		return (1);
 	doc->name = ft_strjoin(doc->name, ".heredoc");
 	if (!doc->name)
 		return (1);
