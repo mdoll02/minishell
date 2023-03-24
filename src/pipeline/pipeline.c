@@ -37,7 +37,8 @@ static int	handle_final_case(t_shell *shell, t_cmd *cmd,
 		close(pl->output_fd);
 	}
 	dup2(pl->input_fd, STDIN_FILENO);
-	close(pl->input_fd);
+	if (pl->input_fd != STDIN_FILENO)
+		close(pl->input_fd);
 	execute_internal(shell, cmd, status);
 	return (*status);
 }
