@@ -13,6 +13,7 @@
 #include "pipeline.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 bool	check_for_heredoc(t_cmd *cmd, int len)
 {
@@ -42,6 +43,11 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 	{
 		(*cmd)++;
 		(*len)--;
+	}
+	if ((*cmd + 1)->name == NULL)
+	{
+		printf("minishell: syntax error -> expected limiter\n");
+		return (1);
 	}
 	if (here_doc(doc, (*cmd + 1)->name, *cmd + 1) != 0)
 	{
