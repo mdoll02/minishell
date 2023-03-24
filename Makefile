@@ -6,8 +6,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = dependencies/libft/libft.a
 LIBFT_DIR = dependencies/libft
 
-DEPENDENCIES = $(LIBFT) -lreadline
-INCLUDES = -I dependencies/libft -I includes
+DEPENDENCIES = $(LIBFT) -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+INCLUDES = -I dependencies/libft -I includes -I $(HOME)/goinfre/.brew/opt/readline/include/
 
 SRC_DIR = src
 OBJ_DIR = obj
