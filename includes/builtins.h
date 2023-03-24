@@ -19,8 +19,8 @@ typedef int		(*t_builtin_func)(t_shell *shell, const t_cmd *cmd);
 
 typedef struct s_builtin
 {
-	char	*name;
-	t_builtin_func func;
+	char			*name;
+	t_builtin_func	func;
 }	t_builtin;
 
 int	echo_builtin(t_shell *shell, const t_cmd *cmd);
