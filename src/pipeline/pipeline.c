@@ -29,13 +29,15 @@ static int	handle_final_case(t_shell *shell, t_cmd *cmd,
 {
 	if (cmd->next_type == CT_REDIRECT_OUT || \
 			cmd->next_type == CT_REDIRECT_OUTAPP)
+	{
 		pl->output_fd = redirect_output(cmd);
-	if (pl->output_fd == -1)
-		return (pl->output_fd);
-	dup2(pl->output_fd, STDOUT_FILENO);
+		if (pl->output_fd == -1)
+			return (pl->output_fd);
+		dup2(pl->output_fd, STDOUT_FILENO);
+		close(pl->output_fd);
+	}
 	dup2(pl->input_fd, STDIN_FILENO);
 	close(pl->input_fd);
-	close(pl->output_fd);
 	execute_internal(shell, cmd, status);
 	return (*status);
 }
