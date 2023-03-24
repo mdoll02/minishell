@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "pipeline.h"
+#include <sys/wait.h>
 
 int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
 {
