@@ -19,12 +19,15 @@
 
 int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
 {
+	pid_t	pid;
+
 	if (pipe(pl->pipe_fd) == -1)
 	{
 		perror("pipe");
 		return (1);
 	}
-	if (!fork())
+	pid = fork();
+	if (pid == 0)
 	{
 		close(pl->pipe_fd[0]);
 		dup2(pl->input_fd, STDIN_FILENO);
@@ -36,8 +39,9 @@ int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
 	}
 	else
 	{
-		close(pl->pipe_fd[1]);
-		pl->input_fd = pl->pipe_fd[0];
+		waitpid(-1, status, 0);
 	}
+	close(pl->pipe_fd[1]);
+	pl->input_fd = pl->pipe_fd[0];
 	return (pl->input_fd);
 }

@@ -48,7 +48,10 @@ int	execute_command_child(t_cmd *cmd, t_env *env)
 	envp = export_env(env);
 	pid = fork();
 	if (pid == 0)
+	{
 		result = execve(cmd->name, cmd->args, envp);
+		exit(result);
+	}
 	else
 		waitpid(pid, &result, 0);
 	result = WEXITSTATUS(result);
