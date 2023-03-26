@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "execution.h"
 #include "pipeline.h"
+#include <sys/wait.h>
 
 
 static void	restore_std_fds(int orig_stdin, int orig_stdout)
