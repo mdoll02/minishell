@@ -33,16 +33,16 @@ int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
 		close(pl->pipe_fd[0]);
 		dup2(pl->input_fd, STDIN_FILENO);
 		dup2(pl->pipe_fd[1], STDOUT_FILENO);
-		close(pl->input_fd);
-		close(pl->pipe_fd[1]);
+		if (pl->input_fd != STDIN_FILENO)
+			close(pl->input_fd);
 		*status = execute_internal(shell, cmd, status);
+		close(pl->pipe_fd[1]);
 		exit(*status);
 	}
 	else
 	{
-		waitpid(-1, status, 0);
+		close(pl->pipe_fd[1]);
+		pl->input_fd = pl->pipe_fd[0];
 	}
-	close(pl->pipe_fd[1]);
-	pl->input_fd = pl->pipe_fd[0];
 	return (pl->input_fd);
 }
