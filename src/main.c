@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 11:52:58 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/16 14:19:51 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:11:53 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,18 @@ static void	next_run(t_shell *shell)
 
 static int	minishell(char **environ)
 {
-	t_shell	*shell;
+	t_shell	shell;
 
-	shell = ft_calloc(1, sizeof(t_shell));
-	if (!shell)
-		return (1);
-	shell->first_run = 1;
-	load_env(shell, environ);
+	shell.first_run = 1;
+	load_env(&shell, environ);
 	using_history();
 	register_signals();
-	while (!shell->exit)
-		next_run(shell);
+	while (!shell.exit)
+		next_run(&shell);
 	clear_history();
-	clear_env(&shell->env);
-	return (shell->last_status);
+	clear_env(&shell.env);
+	clear_env(&shell.secret_env);
+	return (shell.last_status);
 }
 
 int	main(int argc, char **argv, char **environ)
