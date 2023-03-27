@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 11:52:58 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/27 15:11:53 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:23:11 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static int	minishell(char **environ)
 {
 	t_shell	shell;
 
+	bzero(&shell, sizeof(t_shell));
 	shell.first_run = 1;
 	load_env(&shell, environ);
 	using_history();
