@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:23:15 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/02/13 00:27:38 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:18:30 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	clear_env(t_env **environment)
 	t_env	*env;
 	t_env	*tmp;
 
+	if (!environment)
+		return ;
 	env = *environment;
 	while (env)
 	{
