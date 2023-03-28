@@ -15,7 +15,7 @@
 
 # include "types.h"
 
-typedef int		(*t_builtin_func)(t_shell *shell, const t_cmd *cmd);
+typedef int				(*t_builtin_func)(t_shell *shell, const t_cmd *cmd);
 
 typedef struct s_builtin
 {

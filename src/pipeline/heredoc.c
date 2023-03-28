@@ -52,10 +52,7 @@ static int	create_heredoc_file(t_heredoc *doc)
 		return (1);
 	doc->fd = open(doc->name, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (doc->fd < 1)
-	{
-		perror ("open");
-		return (1);
-	}
+		return (perror ("open"), 1);
 	return (0);
 }
 

@@ -40,20 +40,16 @@ static void	append_expanded_string(char **expanded, const char *matched)
 		expanded_len = ft_strlen(*expanded);
 	else
 		expanded_len = 0;
-
 	matched_len = ft_strlen(matched);
 	new_expanded = malloc(expanded_len + matched_len + 2);
-
 	if (expanded_len > 0)
 	{
 		ft_memcpy(new_expanded, *expanded, expanded_len);
 		new_expanded[expanded_len] = ' ';
 		expanded_len++;
 	}
-
 	ft_memcpy(new_expanded + expanded_len, matched, matched_len);
 	new_expanded[expanded_len + matched_len] = '\0';
-
 	free(*expanded);
 	*expanded = new_expanded;
 }
@@ -79,6 +75,5 @@ char	*get_pattern_start(const char *original, char *t)
 	pattern_start = t;
 	while (pattern_start > original && *(pattern_start - 1) != ' ')
 		pattern_start--;
-
 	return (pattern_start);
 }

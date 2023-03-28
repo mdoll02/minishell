@@ -45,18 +45,13 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 		(*len)--;
 	}
 	if ((*cmd + 1)->name == NULL)
-	{
-		printf("minishell: syntax error -> expected limiter\n");
-		return (1);
-	}
+		return (printf("minishell: syntax error -> expected limiter\n"), 1);
 	if (here_doc(doc, (*cmd + 1)->name, *cmd + 1) != 0)
-	{
-		clear_heredoc(doc);
-		return (1);
-	}
+		return (clear_heredoc(doc), 1);
 	if ((*cmd)->name == NULL)
 	{
 		(*cmd)++;
+		(*len) -= 2;
 		if ((*cmd)->argc > 1)
 		{
 			(*cmd)->args++;
@@ -65,10 +60,8 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 		}
 		else
 			(*cmd)++;
-		(*len) -= 2;
 	}
 	else
 		(*len)--;
-	pl->input_fd = doc->fd;
-	return (0);
+	return (pl->input_fd = doc->fd, 0);
 }

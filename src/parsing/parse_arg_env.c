@@ -6,7 +6,7 @@
 /*   By: kschmidt <kevin@imkx.dev>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:35:30 by kschmidt          #+#    #+#             */
-/*   Updated: 2023/03/15 20:56:26 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/28 04:02:14 by kschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,21 @@ static char	*insert_last_status(char **original, char *t, int last_status)
 	return (t);
 }
 
+char	*handle_env(char *o, char **original, t_shell *shell)
+{
+	char	*new_o;
+
+	new_o = o;
+	if (*(o + 1) == '?')
+		new_o = insert_last_status(original, o, shell->last_status);
+	else if (ft_isalnum(*(o + 1)) || (*o + 1) == '_')
+		new_o = insert_env_var(original, o, shell->env);
+	else
+		new_o++;
+	new_o--;
+	return (new_o);
+}
+
 void	expand_arg(char **original, t_shell *shell)
 {
 	char	*o;
@@ -90,15 +105,7 @@ void	expand_arg(char **original, t_shell *shell)
 	while (*o)
 	{
 		if (*o == '$' && !single_quote)
-		{
-			if (*(o + 1) == '?')
-				o = insert_last_status(original, o, shell->last_status);
-			else if (ft_isalnum(*(o + 1)) || *(o + 1) == '_')
-				o = insert_env_var(original, o, shell->env);
-			else
-				o++;
-			o--;
-		}
+			o = handle_env(o, original, shell);
 		else if (*o == '*' && !single_quote && !double_quote)
 			o = expand_wildcard(original, o);
 		else if ((*o == '"' && !single_quote) || (*o == '\'' && !double_quote))

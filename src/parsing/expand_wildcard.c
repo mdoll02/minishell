@@ -44,7 +44,6 @@ static char	*create_new_string(char *original, const char *pattern_start,
 	if (expanded_len > 0)
 		ft_memcpy(new_str + prefix_len, expanded, expanded_len);
 	strcpy(new_str + prefix_len + expanded_len, wildcard_end);
-
 	return (new_str);
 }
 
@@ -73,7 +72,6 @@ char	*expand_wildcard(char **original, char *t)
 	expanded = 0;
 	pattern_start = get_pattern_start(*original, t);
 	dir = opendir(".");
-
 	if (dir)
 	{
 		process_directory_entries(dir, pattern_start, &expanded);

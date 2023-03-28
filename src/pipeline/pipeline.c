@@ -16,7 +16,6 @@
 #include "pipeline.h"
 #include <sys/wait.h>
 
-
 static void	restore_std_fds(int orig_stdin, int orig_stdout)
 {
 	dup2(orig_stdin, STDIN_FILENO);
