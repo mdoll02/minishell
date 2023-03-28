@@ -15,6 +15,7 @@
 #include "execution.h"
 #include "pipeline.h"
 #include <sys/wait.h>
+#include <stdio.h>
 
 static void	restore_std_fds(int orig_stdin, int orig_stdout)
 {
@@ -36,10 +37,13 @@ static int	handle_final_case(t_shell *shell, t_cmd *cmd,
 		dup2(pl->output_fd, STDOUT_FILENO);
 		close(pl->output_fd);
 	}
-	dup2(pl->input_fd, STDIN_FILENO);
-	if (pl->input_fd != STDIN_FILENO)
-		close(pl->input_fd);
-	execute_internal(shell, cmd, status);
+	if (cmd->name)
+	{
+		dup2(pl->input_fd, STDIN_FILENO);
+		if (pl->input_fd != STDIN_FILENO)
+			close(pl->input_fd);
+		execute_internal(shell, cmd, status);
+	}
 	while (waitpid(-1, status, 0) != -1)
 		;
 	return (*status);
@@ -80,6 +84,8 @@ static int	check_input_redirection(t_cmd	**cmd, t_heredoc	*doc, \
 	}
 	else if ((*cmd)->next_type == CT_REDIRECT_IN)
 	{
+		if (*len == 1)
+			return (printf("minishell: syntax error -> expected infile\n"), 1);
 		pl->input_fd = redirect_input(&*cmd);
 		if (pl->input_fd == -1)
 			return (1);
@@ -100,12 +106,16 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 	orig_stdin = dup(STDIN_FILENO);
 	orig_stdout = dup(STDOUT_FILENO);
 	doc.name = NULL;
-	*status = check_input_redirection(&cmd, &doc, &pl, &len);
-	if (*status == 1)
-		return (*status);
+	if (check_input_redirection(&cmd, &doc, &pl, &len) != 0)
+		return (1);
+	if (len == 1 && (cmd->next_type == CT_REDIRECT_OUT || \
+			cmd->next_type == CT_REDIRECT_OUTAPP))
+		return (printf("minishell: syntax error -> expected outfile\n"), 1);
 	pl.output_fd = orig_stdout;
 	while (len--)
 	{
+		if (cmd->next_type == CT_PIPE && cmd->name == NULL)
+			return (printf("minisell: syntax error -> pipe\n"), 1);
 		if (exec_pipeline_command(shell, &cmd, status,
 				&pl) != -1)
 			break ;
