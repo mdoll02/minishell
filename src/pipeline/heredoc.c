@@ -73,6 +73,7 @@ int	here_doc(t_heredoc *doc, char *limiter, t_cmd *cmd)
 			break ;
 		write(doc->fd, line, ft_strlen(line));
 		write(doc->fd, "\n", 1);
+		free(line);
 	}
 	free(line);
 	close (doc->fd);
