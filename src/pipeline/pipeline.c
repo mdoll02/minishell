@@ -106,7 +106,7 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 
 	orig_stdin = dup(STDIN_FILENO);
 	orig_stdout = dup(STDOUT_FILENO);
-	doc.name = NULL;
+	*doc.name = 0;
 	if (check_input_redirection(&cmd, &doc, &pl, &len) != 0)
 		return (1);
 	if (len == 1 && (cmd->next_type == CT_REDIRECT_OUT || \

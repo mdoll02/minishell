@@ -25,7 +25,7 @@ typedef struct s_fd_pipeline
 
 typedef struct s_heredoc
 {
-	char	*name;
+	char	name[19];
 	int		fd;
 }	t_heredoc;
 
