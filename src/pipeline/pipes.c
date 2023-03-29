@@ -37,7 +37,6 @@ int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
 			close(pl->input_fd);
 		close(pl->pipe_fd[1]);
 		*status = execute_internal(shell, cmd, status);
-		close(pl->pipe_fd[1]);
 		exit(*status);
 	}
 	else
