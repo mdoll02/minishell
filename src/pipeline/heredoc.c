@@ -79,9 +79,6 @@ int	here_doc(t_heredoc *doc, char *limiter, t_cmd *cmd)
 	close (doc->fd);
 	doc->fd = open(doc->name, O_RDONLY);
 	if (doc->fd < 1)
-	{
-		perror ("open");
-		return (1);
-	}
+		return (perror ("open"), 1);
 	return (0);
 }
