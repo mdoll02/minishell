@@ -35,6 +35,7 @@ int	handle_pipe_case(t_shell *shell, t_cmd *cmd, int *status, t_fd_pipeline *pl)
 		dup2(pl->pipe_fd[1], STDOUT_FILENO);
 		if (pl->input_fd != STDIN_FILENO)
 			close(pl->input_fd);
+		close(pl->pipe_fd[1]);
 		*status = execute_internal(shell, cmd, status);
 		close(pl->pipe_fd[1]);
 		exit(*status);

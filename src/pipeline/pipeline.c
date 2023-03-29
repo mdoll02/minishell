@@ -42,6 +42,7 @@ static int	handle_final_case(t_shell *shell, t_cmd *cmd,
 		dup2(pl->input_fd, STDIN_FILENO);
 		if (pl->input_fd != STDIN_FILENO)
 			close(pl->input_fd);
+		close(pl->output_fd);
 		execute_internal(shell, cmd, status);
 	}
 	while (waitpid(-1, status, 0) != -1)
