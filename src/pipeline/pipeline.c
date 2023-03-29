@@ -116,7 +116,7 @@ int	exec_pipeline(t_shell *shell, t_cmd *cmd, int len, int *status)
 	while (len--)
 	{
 		if (cmd->next_type == CT_PIPE && cmd->name == NULL)
-			return (printf("minisell: syntax error -> pipe\n"), 1);
+			return (printf("minishell: syntax error -> pipe\n"), 1);
 		if (exec_pipeline_command(shell, &cmd, status,
 				&pl) != -1)
 			break ;
