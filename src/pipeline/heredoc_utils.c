@@ -28,12 +28,8 @@ bool	check_for_heredoc(t_cmd *cmd, int len)
 
 void	clear_heredoc(t_heredoc *doc)
 {
-	if (doc->name != NULL)
-	{
-		unlink(doc->name);
-		close(doc->fd);
-		free(doc->name);
-	}
+	unlink(doc->name);
+	close(doc->fd);
 }
 
 int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \

@@ -32,24 +32,19 @@ static int	create_heredoc_file(t_heredoc *doc)
 {
 	int	i;
 
-	i = 0;
 	doc->fd = open("/dev/random", O_RDONLY);
 	if (doc->fd < 0)
 		return (1);
-	read(doc->fd, doc->name, 5);
+	read(doc->fd, doc->name + 5, 5);
 	close(doc->fd);
+	ft_memcpy(doc->name, "/tmp/", 5);
+	i = 0;
 	while (i < 5)
 	{
-		doc->name[i] = (char)(doc->name[i] % 26 + 'a');
+		doc->name[i + 5] = (char)(doc->name[i + 5] % 26 + 'a');
 		i++;
 	}
-	doc->name[i] = 0;
-	doc->name = ft_strjoin("/tmp/", doc->name);
-	if (!doc->name)
-		return (1);
-	doc->name = ft_strjoin(doc->name, ".heredoc");
-	if (!doc->name)
-		return (1);
+	ft_memcpy(doc->name + 10, ".heredoc", 9);
 	doc->fd = open(doc->name, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (doc->fd < 1)
 		return (perror ("open"), 1);
@@ -61,9 +56,6 @@ int	here_doc(t_heredoc *doc, char *limiter, t_cmd *cmd)
 	char		*line;
 
 	(void)cmd;
-	doc->name = malloc(sizeof(char) * 6);
-	if (!doc->name)
-		return (1);
 	if (create_heredoc_file(doc) != 0)
 		return (1);
 	while (1)
