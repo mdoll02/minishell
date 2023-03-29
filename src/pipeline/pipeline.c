@@ -80,14 +80,14 @@ static int	check_input_redirection(t_cmd	**cmd, t_heredoc	*doc, \
 {
 	if (check_for_heredoc(*cmd, *len) == true)
 	{
-		if (init_heredoc(&*cmd, doc, pl, len) != 0)
+		if (init_heredoc(cmd, doc, pl, len) != 0)
 			return (1);
 	}
 	else if ((*cmd)->next_type == CT_REDIRECT_IN)
 	{
 		if (*len == 1)
 			return (printf("minishell: syntax error -> expected infile\n"), 1);
-		pl->input_fd = redirect_input(&*cmd);
+		pl->input_fd = redirect_input(cmd);
 		if (pl->input_fd == -1)
 			return (1);
 		len -= 2;
