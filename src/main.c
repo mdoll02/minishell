@@ -67,7 +67,7 @@ static int	minishell(char **environ)
 {
 	t_shell	shell;
 
-	bzero(&shell, sizeof(t_shell));
+	ft_bzero(&shell, sizeof(t_shell));
 	shell.first_run = 1;
 	load_env(&shell, environ);
 	using_history();
