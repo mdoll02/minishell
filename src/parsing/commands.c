@@ -77,10 +77,12 @@ void	free_commands(t_cmd *cmd)
 	int	i;
 
 	i = 0;
-	while (cmd[i].name)
+	while (cmd[i].name || cmd[i].next_type)
 	{
-		free(cmd[i].name);
-		ft_free_split(cmd[i].args);
+		if (cmd[i].name)
+			free(cmd[i].name);
+		if (cmd[i].args)
+			ft_free_split(cmd[i].args);
 		i++;
 	}
 	free(cmd);
