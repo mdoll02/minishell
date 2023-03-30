@@ -71,7 +71,6 @@ int	execute_internal(t_shell *shell, t_cmd *cmd, int *status)
 		free(cmd->name);
 		cmd->name = exec_path;
 		*status = execute_command_child(cmd, shell->env);
-		free(exec_path);
 		return (0);
 	}
 	ft_putstr_fd("minishell: command not found: ", 2);
