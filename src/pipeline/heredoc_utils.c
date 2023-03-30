@@ -12,7 +12,6 @@
 
 #include "pipeline.h"
 #include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include <libft.h>
 
@@ -36,8 +35,7 @@ void	clear_heredoc(t_heredoc *doc)
 	}
 }
 
-int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
-					int *len)
+int	init_heredoc(t_cmd **cmd, t_heredoc *doc, t_fd_pipeline *pl, int *len)
 {
 	while ((*cmd)->next_type != CT_REDIRECT_HEREDOC)
 	{
