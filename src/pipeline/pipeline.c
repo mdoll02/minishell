@@ -90,7 +90,7 @@ static int	check_input_redirection(t_cmd	**cmd, t_heredoc	*doc, \
 		pl->input_fd = redirect_input(cmd);
 		if (pl->input_fd == -1)
 			return (1);
-		len -= 2;
+		(*len)--;
 	}
 	else
 		pl->input_fd = STDIN_FILENO;
