@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <libft.h>
 
 bool	check_for_heredoc(t_cmd *cmd, int len)
 {
@@ -28,8 +29,11 @@ bool	check_for_heredoc(t_cmd *cmd, int len)
 
 void	clear_heredoc(t_heredoc *doc)
 {
-	unlink(doc->name);
-	close(doc->fd);
+	if (ft_strnstr(doc->name, ".heredoc", 19) != 0)
+	{
+		unlink(doc->name);
+		close(doc->fd);
+	}
 }
 
 int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
