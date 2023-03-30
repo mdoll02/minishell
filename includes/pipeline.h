@@ -38,5 +38,6 @@ bool		check_for_heredoc(t_cmd *cmd, int len);
 void		clear_heredoc(t_heredoc *doc);
 int			init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 								int *len);
+int			rearrange_cmd(t_cmd *cmd);
 
 #endif

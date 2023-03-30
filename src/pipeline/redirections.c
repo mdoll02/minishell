@@ -36,6 +36,32 @@ int	redirect_input(t_cmd **cmd)
 	return (open_ret);
 }
 
+int	rearrange_cmd(t_cmd *cmd)
+{
+	char	**new_args;
+	int		i;
+
+	i = 1;
+	free(cmd->name);
+	cmd->name = ft_strdup(cmd->args[1]);
+	if (!cmd->name)
+		return (1);
+	new_args = malloc(sizeof(char *) * cmd->argc);
+	if (!new_args)
+		return (1);
+	while (cmd->args[i])
+	{
+		new_args[i - 1] = ft_strdup(cmd->args[i]);
+		if (!new_args[i - 1])
+			ft_free_split(new_args);
+		i++;
+	}
+	new_args[i - 1] = NULL;
+	ft_free_split(cmd->args);
+	cmd->args = new_args;
+	return (0);
+}
+
 int	redirect_output(t_cmd *cmd)
 {
 	int	open_flags;
