@@ -54,8 +54,8 @@ int	init_heredoc(t_cmd	**cmd, t_heredoc	*doc, t_fd_pipeline	*pl, \
 		(*len) -= 2;
 		if ((*cmd)->argc > 1)
 		{
-			(*cmd)->args++;
-			(*cmd)->name = (*cmd)->args[0];
+			if (rearrange_cmd(*cmd) != 0)
+				return (1);
 			(*len)++;
 		}
 		else

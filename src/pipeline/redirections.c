@@ -30,8 +30,8 @@ int	redirect_input(t_cmd **cmd)
 	}
 	if ((*cmd)->argc > 1)
 	{
-		(*cmd)->args++;
-		(*cmd)->name = (*cmd)->args[0];
+		if (rearrange_cmd(*cmd) != 0)
+			return (1);
 	}
 	else
 		(*cmd)++;
