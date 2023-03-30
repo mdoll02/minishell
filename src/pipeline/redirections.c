@@ -13,7 +13,9 @@
 #include "types.h"
 #include <stdio.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include "pipeline.h"
+#include "libft.h"
 
 int	redirect_input(t_cmd **cmd)
 {
