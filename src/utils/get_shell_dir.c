@@ -24,7 +24,7 @@ char	*get_shell_dir(t_shell *shell)
 	shell_dir = getcwd(0, 0);
 	home_dir = get_env_nc(shell->secret_env, "HOME");
 	home_dir_len = ft_strlen(home_dir);
-	if (ft_strncmp(shell_dir, home_dir, home_dir_len) == 0)
+	if (ft_strncmp(shell_dir, home_dir, home_dir_len) == 0 && shell_dir)
 	{
 		shell_dir[0] = '~';
 		ft_memmove(shell_dir + 1, shell_dir + home_dir_len,
