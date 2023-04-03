@@ -45,7 +45,7 @@ static int	handle_final_case(t_shell *shell, t_cmd *cmd,
 		close(pl->output_fd);
 		execute_internal(shell, cmd, status);
 	}
-	while (waitpid(-1, status, 0) != -1)
+	while (waitpid(-1, NULL, 0) != -1)
 		;
 	return (*status);
 }
