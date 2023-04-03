@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:09:32 by mdoll             #+#    #+#             */
-/*   Updated: 2023/03/15 20:15:58 by kschmidt         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:15:58 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "pipeline.h"
 #include "libft.h"
 
@@ -67,11 +68,19 @@ int	rearrange_cmd(t_cmd *cmd)
 int	redirect_output(t_cmd *cmd)
 {
 	int	open_flags;
+	int	fd;
 
-	if (cmd->next_type == CT_REDIRECT_OUT)
-		open_flags = O_WRONLY | O_TRUNC | O_CREAT;
-	else
-		open_flags = O_WRONLY | O_CREAT | O_APPEND;
-	cmd++;
+	while (cmd->next_type == CT_REDIRECT_OUT || cmd->next_type == CT_REDIRECT_OUTAPP)
+	{
+		if (cmd->next_type == CT_REDIRECT_OUT)
+			open_flags = O_WRONLY | O_TRUNC | O_CREAT;
+		else
+			open_flags = O_WRONLY | O_CREAT | O_APPEND;
+		cmd++;
+		fd = open(cmd->name, open_flags, 0644);
+		if (fd == -1)
+			return (-1);
+		close(fd);
+	}
 	return (open(cmd->name, open_flags, 0644));
 }
