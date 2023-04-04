@@ -65,7 +65,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	@make -C $(LIBFT_DIR) clean
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
