@@ -70,7 +70,8 @@ int	redirect_output(t_cmd *cmd)
 	int	open_flags;
 	int	fd;
 
-	while (cmd->next_type == CT_REDIRECT_OUT || cmd->next_type == CT_REDIRECT_OUTAPP)
+	while (cmd->next_type == CT_REDIRECT_OUT || \
+			cmd->next_type == CT_REDIRECT_OUTAPP)
 	{
 		if (cmd->next_type == CT_REDIRECT_OUT)
 			open_flags = O_WRONLY | O_TRUNC | O_CREAT;
