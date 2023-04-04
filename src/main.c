@@ -29,7 +29,7 @@ static char	*show_prompt(t_shell *shell)
 	*prompt = 0;
 	if (shell->first_run)
 	{
-		printf("Welcome to minishell v0.7 by mdoll and kschmidt!\n");
+		printf("Welcome to minishell v1.0 by mdoll and kschmidt!\n");
 		shell->first_run = 0;
 	}
 	else
