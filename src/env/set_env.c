@@ -21,7 +21,7 @@ void	set_env(t_shell *shell, char *key, const char *value)
 	env = shell->env;
 	while (env)
 	{
-		if (ft_strncmp(env->name, key, ft_strlen(key)) == 0)
+		if (ft_strcmp(env->name, key) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(value);
