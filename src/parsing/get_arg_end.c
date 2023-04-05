@@ -31,7 +31,5 @@ char	*get_arg_end(char *line)
 			single_quotes++;
 		name_end++;
 	}
-	if (quotes % 2 || single_quotes % 2)
-		return (0);
 	return (name_end);
 }
